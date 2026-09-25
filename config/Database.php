@@ -27,4 +27,5 @@ try{
     //on récupère et on l'affiche 
     echo "Erreur numéro : ".$e->getcode(); // le code
     echo "<br>Message de l'erreur : ".$e->getmessage(); // le message 
+    
 }
