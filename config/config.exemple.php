@@ -1,15 +1,13 @@
 <?php
 
-// paramètres de connexion
 const DB_DRIVER = "mysql";
 const DB_HOST = "localhost";
 const DB_LOGIN = "root";
 const DB_PWD = "";
 const DB_NAME = "maison_rosalie";
-const DB_PORT = 3307;
+const DB_PORT = 3306;
 const DB_CHARSET = "utf8mb4";
 
-// DSN pour la connexion PDO
 const MARIA_DSN =
     DB_DRIVER .
     ":host=" . DB_HOST .
@@ -18,5 +16,5 @@ const MARIA_DSN =
     ";charset=" . DB_CHARSET .
     ";";
 
-// URL absolue du projet
-const URL_BASE = __DIR__;
+const RACINE_PATH = __DIR__ . "/..";
+const RACINE_URL = "http://localhost/OPERATION-CHOCOLATE/public";
