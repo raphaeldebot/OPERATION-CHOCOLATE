@@ -5,3 +5,4 @@ config/config.php
 Thumbs.db
 *.log
 /vendor/
+/node_modules/
