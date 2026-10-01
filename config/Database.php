@@ -13,6 +13,7 @@ try {
 
     $connectDB->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-} catch (Exception $e) {
-    die($e->getMessage());
+} catch (PDOException $e) {
+    error_log($e->getMessage());
+    die("Une erreur est survenue. Veuillez réessayer plus tard.");
 }
