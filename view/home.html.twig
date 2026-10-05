@@ -2,24 +2,273 @@
 
 {% block body %}
 
-<main class="flex min-h-screen items-center justify-center">
+<div class="min-h-screen bg-[#d7d5c2] font-serif text-[#32452b]">
 
-    <section class="text-center">
+    {# NAVIGATION #}
+    <header class="px-6 pt-8">
+        <nav aria-label="Navigation principale">
+            <ul class="flex flex-wrap justify-center gap-4">
+                <li>
+                    <a href="?pg=home"
+                       aria-current="page"
+                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
+                        Accueil
+                    </a>
+                </li>
 
-        <h1 class="text-5xl font-bold">
-            Maison Rosalie
-        </h1>
+                <li>
+                    <a href="?pg=about"
+                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
+                        À propos
+                    </a>
+                </li>
 
-        <p class="mt-4 text-lg text-stone-600">
-            Le livre de recettes au chocolat.
+                <li>
+                    <a href="?pg=recipes"
+                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
+                        Recettes
+                    </a>
+                </li>
+
+                <li>
+                    <a href="?pg=contact"
+                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        {# HERO : LOGO ET PLATEAU #}
+        <section aria-labelledby="home-title" class="pt-10">
+
+            <div class="flex flex-col items-center px-6">
+                <img
+                    src="assets/images/home/logo.svg"
+                    alt=""
+                    class="h-24 w-auto"
+                >
+
+                <h1 id="home-title" class="mt-3 text-3xl uppercase">
+                    Maison Rosalie
+                </h1>
+
+                <div class="relative mt-4 h-28 w-full max-w-xl">
+                    <img
+                        src="assets/images/home/plateau.png"
+                        alt="Un plateau de chocolats Maison Rosalie"
+                        class="absolute left-1/2 top-0 z-10 h-52 w-auto max-w-full -translate-x-1/2 object-contain"
+                    >
+                </div>
+            </div>
+
+            <div class="bg-[#b6c38f] px-6 pb-10 pt-24 text-center">
+                <p class="text-3xl italic leading-relaxed">
+                    Des créations d’exception<br>
+                    pour des moments précieux
+                </p>
+
+                <a href="?pg=recipes"
+                   class="mt-6 inline-block rounded-[50%] bg-[#481915] px-8 py-3 font-sans text-xs text-white uppercase">
+                    Découvrir nos recettes
+                </a>
+            </div>
+
+        </section>
+
+        {# GRANDE PHOTO DES COFFRETS #}
+        <div class="aspect-[3.2/1] overflow-hidden">
+            <img
+                src="assets/images/home/coffrets.webp"
+                alt="Les coffrets et chocolats Maison Rosalie"
+                class="h-full w-full object-cover"
+            >
+        </div>
+
+        <div class="bg-[#b6c38f]">
+
+            {# PRÉSENTATION DANS UNE ELLIPSE #}
+            <section aria-label="L’univers Maison Rosalie"
+                     class="mx-auto max-w-5xl px-6 py-12">
+
+                <div class="rounded-[3rem] border border-[#b17b12] px-8 py-12 md:rounded-[50%] md:px-24">
+
+                    <div class="mx-auto grid max-w-xl items-center gap-8 sm:grid-cols-2">
+                        <img
+                            src="assets/images/home/creation.webp"
+                            alt="Un coffret de chocolats ouvert"
+                            class="aspect-square w-full object-cover"
+                            loading="lazy"
+                        >
+
+                        <p class="text-center text-3xl leading-tight">
+                            Chaque création,<br>
+                            un petit bijou<br>
+                            de saveurs
+                        </p>
+
+                        <p class="text-center text-3xl leading-tight">
+                            Un instant de douceur,<br>
+                            un souvenir<br>
+                            pour toujours
+                        </p>
+
+                        <img
+                            src="assets/images/home/cadeau.webp"
+                            alt="Un coffret cadeau Maison Rosalie"
+                            class="aspect-square w-full object-cover"
+                            loading="lazy"
+                        >
+                    </div>
+
+                </div>
+
+            </section>
+
+            {# TOP 3 : LES DONNÉES SERONT FOURNIES PAR LE CONTRÔLEUR #}
+            <section aria-labelledby="top-title"
+                     class="mx-auto max-w-5xl px-6 pb-16">
+
+                <h2 id="top-title" class="mb-10 text-center text-3xl">
+                    Les 3 recettes les mieux notées
+                </h2>
+
+                {% if top_recipes_error|default(false) %}
+
+                    <p class="text-center" role="status">
+                        Les recettes sont momentanément indisponibles.
+                    </p>
+
+                {% else %}
+
+                    <div class="grid grid-cols-1 gap-10 md:grid-cols-3">
+
+                        {% for recipe in top_recipes|default([])|slice(0, 3) %}
+
+                            <article class="mx-auto w-full max-w-64">
+
+                                <p class="mb-3 text-center text-sm">
+                                    N° {{ loop.index }}
+                                </p>
+
+                                <a href="?pg=recipe&amp;slug={{ recipe.recipe_slug_title|url_encode }}">
+                                    {% if recipe.main_pic|default('') %}
+                                        <img
+                                            src="{{ recipe.main_pic }}"
+                                            alt="{{ recipe.recipe_title }}"
+                                            class="mx-auto aspect-[2/3] w-40 rounded-[50%] border-2 border-[#b17b12] object-cover"
+                                            loading="lazy"
+                                        >
+                                    {% endif %}
+                                </a>
+
+                                <h3 class="mt-5 text-xl">
+                                    {{ recipe.recipe_title }}
+                                </h3>
+
+                                <p class="mt-2 text-sm">
+                                    {% if recipe.vote_count|default(0) > 0 %}
+                                        ★ {{ recipe.average_rating|number_format(1, ',', ' ') }}/5
+                                        · {{ recipe.vote_count }} avis
+                                    {% else %}
+                                        Pas encore de note
+                                    {% endif %}
+                                </p>
+
+                                <div class="mt-3 flex justify-between border-t border-[#d7d5c2] pt-3 text-sm">
+                                    <span>{{ recipe.total_time }} min</span>
+                                    <span>{{ recipe.difficulty|capitalize }}</span>
+                                </div>
+
+                                <a href="?pg=recipe&amp;slug={{ recipe.recipe_slug_title|url_encode }}"
+                                   class="mt-4 inline-block py-2 underline underline-offset-4">
+                                    Voir la recette →
+                                </a>
+
+                            </article>
+
+                        {% else %}
+
+                            <p class="text-center md:col-span-3">
+                                Nos premières recettes seront bientôt disponibles.
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+                <div class="mt-12 text-center">
+                    <a href="?pg=recipes"
+                       class="inline-block rounded-[50%] bg-[#481915] px-8 py-3 font-sans text-xs text-white uppercase">
+                        Découvrez les recettes
+                    </a>
+                </div>
+
+            </section>
+
+        </div>
+
+        {# GRAND VISUEL CHOCOLAT #}
+        <div class="aspect-[2.2/1] overflow-hidden">
+            <img
+                src="assets/images/home/chocolat.webp"
+                alt="Du chocolat fondant versé sur une création artisanale"
+                class="h-full w-full object-cover"
+                loading="lazy"
+            >
+        </div>
+
+        {# HISTOIRE DE LA MAISON #}
+        <section aria-labelledby="history-title"
+                 class="mx-auto grid max-w-5xl items-center gap-10 px-6 py-16 md:grid-cols-2">
+
+            <div>
+                <h2 id="history-title" class="text-3xl">
+                    Une histoire de famille
+                </h2>
+
+                <p class="mt-6 text-lg leading-relaxed">
+                    Depuis 1987, la famille Moreau perpétue la tradition
+                    des chocolatiers artisanaux belges. Chaque recette
+                    est transmise de génération en génération avec amour
+                    et savoir-faire.
+                </p>
+
+                <a href="?pg=about"
+                   class="mt-6 inline-block rounded-[50%] border border-[#b17b12] px-8 py-3">
+                    Notre histoire
+                </a>
+            </div>
+
+            <img
+                src="assets/images/home/atelier.webp"
+                alt="L’atelier des chocolatiers Maison Rosalie"
+                class="aspect-[4/3] w-full rounded-[45%] object-cover"
+                loading="lazy"
+            >
+
+        </section>
+
+    </main>
+
+    <footer class="border-t border-[#b17b12] px-6 py-8 text-center">
+        <p class="text-lg uppercase">Maison Rosalie</p>
+
+        <a href="mailto:contact@maisonrosalie.be"
+           class="mt-3 inline-block text-sm">
+            contact@maisonrosalie.be
+        </a>
+
+        <p class="mt-4 text-xs">
+            © 2026 Maison Rosalie — Tous droits réservés
         </p>
+    </footer>
 
-        <p class="mt-2 text-sm text-stone-500">
-            Twig, routing et Tailwind fonctionnent.
-        </p>
-
-    </section>
-
-</main>
+</div>
 
 {% endblock %}
