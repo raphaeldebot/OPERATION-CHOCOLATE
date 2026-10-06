@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace model\mapping;
 
 use model\StringTrait;
+use model\AbstractMapping;
 use Exception;
 
 // une ligne de la table `recipes`
@@ -103,7 +104,7 @@ public function getPrepTime(): ?int
 }
 
 // setter prep_time
-public function setPrepTime(?int $prep_time): ?int
+public function setPrepTime(?int $prep_time): void
 {
     $this->prep_time = $prep_time;
 }
@@ -161,11 +162,21 @@ public function setCreatedAt(string $created_at): void
 }
 
 // getter author_id
+public function getAuthorId(): ?int
+{
+    return $this->author_id;
+}
+// setter author_id
+public function setAuthorId(int $author_id): void
+{
+    $this->author_id = $author_id;
+}
+// getter author
 public function getAuthor(): ?UserMapping
 {
     return $this->author;
 }
-// setter author_id
+// setter author
 public function setAuthor(?UserMapping $author): void
 {
     $this->author = $author;
