@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace model\mapping;
 
-use model\AbstractMapping;
+use model\StringTrait;
 use Exception;
 
 // une ligne de la table `recipes`
@@ -15,7 +15,7 @@ class RecipeMapping extends AbstractMapping
     protected ?string $recipe_title = null;
     protected ?string $recipe_slug_title = null;
     protected ?string $recipe_description = null;
-    protected ?int $main_pic = null;
+    protected ?string $main_pic = null;
     protected ?int $prep_time = null;
     protected ?int $cooking_time = null;
     protected ?int $portion = null;
@@ -29,7 +29,7 @@ class RecipeMapping extends AbstractMapping
     protected ?array $steps = null;
     protected ?array $comments = null;
 
-    protected ?UserMapping $author = null;
+    protected ?UserMapping $author = null;    
     use StringTrait;
 
 // getter recipe_id
@@ -39,7 +39,7 @@ public function getRecipeId(): ?int
 }
 
 // setter recipe_id
-public function RecipeTitle(int $recipe_id): void
+public function setRecipeId(int $recipe_id): void
 {
     if($recipe_id <= 0) throw new Exception("L'id ne peut être négatif ou valoir 0", 333);
     $this->recipe_id = $recipe_id;
@@ -52,7 +52,7 @@ public function getRecipeTitle(): ?string
 }
 
 // setter recipe_title
-public function setRecipeTitle(int $recipe_title): void
+public function setRecipeTitle(string $recipe_title): void
 {
     $nbTitle =  mb_strlen(trim($recipe_title));
     if ($nbTitle < 3 || $nbTitle > 100) throw new Exception("Le titre doit avoir entre 3 et 100 caractères", 333);
@@ -132,39 +132,82 @@ public function setPortion(int $portion): void
     $this->portion = $portion;
 }
 
-// setter difficulty
-public function setDifficulty(): ?int
+// getter difficulty
+public function getDifficulty(): ?string
 {
     return $this->difficulty;
 }
 
-// getter difficulty
-public function getDifficulty(?int $difficulty): ?string
+// setter difficulty
+public function setDifficulty(string $difficulty): void
 {
+    if (!in_array($difficulty, ['facile', 'moyen', 'difficile'], true)) {
+        throw new Exception('Difficulté invalide');
+    }
+
     $this->difficulty = $difficulty;
 }
 
-// setter created_at
-public function setCreatedAt(): ?string
+// getter created_at
+public function getCreatedAt(): ?string
 {
     return $this->created_at;
 }
 
-// getter created_at
-public function getCreatedAt(?string $created_at): void
+// setter created_at
+public function setCreatedAt(string $created_at): void
 {
     $this->created_at = $created_at;
 }
 
-// setter author_id
-public function setAuthorId(): ?string
+// getter author_id
+public function getAuthor(): ?UserMapping
 {
-    return $this->author_id;
+    return $this->author;
+}
+// setter author_id
+public function setAuthor(?UserMapping $author): void
+{
+    $this->author = $author;
 }
 
-// getter author_id
-public function getAuthorId(?string $author_id): void
+public function getCategories(): ?array
 {
-    $this->author_id = $author_id;
+    return $this->categories;
+}
+
+public function setCategories(?array $categories): void
+{
+    $this->categories = $categories;
+}
+
+public function getIngredients(): ?array
+{
+    return $this->ingredients;
+}
+
+public function setIngredients(?array $ingredients): void
+{
+    $this->ingredients = $ingredients;
+}
+
+public function getSteps(): ?array
+{
+    return $this->steps;
+}
+
+public function setSteps(?array $steps): void
+{
+    $this->steps = $steps;
+}
+
+public function getComments(): ?array
+{
+    return $this->comments;
+}
+
+public function setComments(?array $comments): void
+{
+    $this->comments = $comments;
 }
 }
