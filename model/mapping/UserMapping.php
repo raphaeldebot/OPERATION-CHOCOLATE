@@ -86,9 +86,62 @@ public function getUserPwd(): ?string
 }
 
 // setter user_pwd
-public function setUserPwd(string $user_pwd): void
-{
-    $this->user_pwd = trim($user_pwd);
+public function setUserPwd(?string $user_pwd): void
+    {
+        $user_pwd = trim((string) $user_pwd);
+ 
+        if (empty($user_pwd)) {
+            throw new Exception("Mot de passe non valide");
+        }
+ 
+        // VARCHAR(255) dans la base (compatible avec un hash password_hash)
+        if (strlen($user_pwd) > 255) {
+            throw new Exception("Le mot de passe ne peut pas dépasser 255 caractères");
+        }
+ 
+        $this->user_pwd = $user_pwd;
 }
 
+// getter created_at
+public function getCreatedAt(): ?string
+{
+    return $this->created_at;
+}
+
+// setter created_at
+public function setCreatedAt(?string $created_at): void
+    {
+        if (is_null($created_at)) {
+            return;
+        }
+ 
+        $timestamp = strtotime($created_at);
+ 
+        if ($timestamp === false) {
+            throw new Exception("La date d'inscription n'est pas au bon format");
+        }
+    }
+
+// getter user_role
+public function getUserRole(): ?string
+{
+    return $this->user_role;
+}
+
+// setter user_role
+public function setUserRole(?string $user_role): void
+    {
+        if (is_null($user_role)) {
+            return;
+        }
+ 
+        // ENUM('user', 'admin') dans la base
+        if (!in_array($user_role, ['user', 'admin'], true)) {
+            throw new Exception("Le rôle de l'utilisateur doit être 'user' ou 'admin'");
+        }
+ 
+        $this->user_role = $user_role;
+    }
+
+    
 }
