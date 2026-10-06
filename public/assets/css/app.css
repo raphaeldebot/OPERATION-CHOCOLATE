@@ -244,6 +244,9 @@
   .inline-block {
     display: inline-block;
   }
+  .table {
+    display: table;
+  }
   .aspect-\[2\.2\/1\] {
     aspect-ratio: 2.2/1;
   }
