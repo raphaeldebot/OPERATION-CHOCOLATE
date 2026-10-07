@@ -158,7 +158,7 @@ public function getCreatedAt(): ?string
 // setter created_at
 public function setCreatedAt(string $created_at): void
 {
-   $this->created_at = date('Y-m-d H:i:s', $timestamp);
+    $this->created_at = $created_at;
 }
 
 // getter author_id
