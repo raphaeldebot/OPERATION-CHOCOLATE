@@ -116,10 +116,12 @@ public function setCreatedAt(?string $created_at): void
         }
  
         $timestamp = strtotime($created_at);
- 
+
         if ($timestamp === false) {
-            throw new Exception("La date d'inscription n'est pas au bon format");
+        throw new Exception("La date d'inscription n'est pas au bon format");
         }
+
+        $this->created_at = date('Y-m-d H:i:s', $timestamp);
     }
 
 // getter user_role

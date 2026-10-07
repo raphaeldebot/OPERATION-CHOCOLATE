@@ -9,10 +9,10 @@ use model\AbstractMapping;
 
 class CategoryMapping extends AbstractMapping
 {
-    protected ?int $categories_id = null;
-    protected ?string $categories_title = null;
-    protected ?string $categories_slug_title = null;
-    protected ?string $categories_description = null;
+    protected ?int $category_id = null;
+    protected ?string $category_title = null;
+    protected ?string $category_slug_title = null;
+    protected ?string $category_description = null;
 
 
 // getter category_id
