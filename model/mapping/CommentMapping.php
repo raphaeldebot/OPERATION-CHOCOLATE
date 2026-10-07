@@ -18,7 +18,7 @@ class CommentMapping extends AbstractMapping
     protected ?string $comment_status = null;
 
     // Relations
-    protected ?UserMapping $author = null;
+    protected ?UserMapping $user = null;
     protected ?RecipeMapping $recipe = null;
 
 // getter id_comment
@@ -147,15 +147,15 @@ public function setCommentStatus(string $comment_status): void
 // LES MISE EN RELATION 
 // relation avec l'auteur
 // getter author
-public function getAuthor(): ?UserMapping
+public function getUser(): ?UserMapping
 {
-    return $this->author;
+    return $this->user;
 }
 
 // setter author
-public function setAuthor(?UserMapping $author): void
+public function setUser(?UserMapping $user): void
 {
-    $this->author = $author;
+    $this->user = $user;
 }
 
 // relation avec la recette 
