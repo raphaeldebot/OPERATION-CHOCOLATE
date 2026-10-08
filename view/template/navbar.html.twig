@@ -1,0 +1,36 @@
+{# Navbar indépendante, incluse uniquement par header.html.twig. #}
+<nav aria-label="Navigation principale" class="relative z-30">
+    {# Menu mobile natif : fonctionne sans JavaScript. #}
+    <details class="mx-auto max-w-64 text-center md:hidden">
+        <summary class="cursor-pointer list-none rounded-full border border-[#b99d60] bg-[#e9e6d8] px-5 py-2 text-xs uppercase tracking-[0.19em]">
+            Menu ☰
+        </summary>
+        <div class="mt-2 flex flex-col gap-3 rounded-xl border border-[#b99d60] bg-[#e9e6d8] p-4 text-xs shadow-lg">
+            <a href="?pg=home">Accueil</a>
+            <a href="?pg=about">À propos</a>
+            <a href="?pg=recipes">Recettes</a>
+            {% for item in recipes_menu|default([])|slice(0, 5) %}
+                <a href="?pg=recipe&amp;slug={{ item.getRecipeSlugTitle()|url_encode }}">
+                    {{ item.getRecipeTitle() }}
+                </a>
+            {% endfor %}
+            <a href="?pg=contact">Contact</a>
+            <button type="button" data-open-login class="text-[#a78337]">Connexion</button>
+        </div>
+    </details>
+
+    <div class="hidden items-center justify-center gap-3 md:flex">
+        <a href="?pg=home" class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">Accueil</a>
+        <a href="?pg=about" class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">À propos</a>
+        <details class="group relative">
+            <summary class="cursor-pointer list-none rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">Recettes</summary>
+            <div class="absolute left-1/2 top-full z-40 mt-2 w-60 -translate-x-1/2 rounded-lg border border-[#bda879] bg-[#e9e6d8] p-3 text-sm shadow-lg">
+                <a href="?pg=recipes" class="block py-2 font-semibold">Toutes les recettes</a>
+                {% for item in recipes_menu|default([])|slice(0, 5) %}
+                    <a href="?pg=recipe&amp;slug={{ item.getRecipeSlugTitle()|url_encode }}" class="block py-2 hover:text-[#a78337]">{{ item.getRecipeTitle() }}</a>
+                {% endfor %}
+            </div>
+        </details>
+        <a href="?pg=contact" class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">Contact</a>
+    </div>
+</nav>
