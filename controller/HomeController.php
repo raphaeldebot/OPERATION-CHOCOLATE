@@ -17,13 +17,29 @@ class HomeController
     }
 
     public function index(): string
-    {
-        $recipeManager = new RecipeManager($this->db);
+{
+    $recipeManager = new RecipeManager($this->db);
 
-        return $this->twig->render('home.html.twig', [
-            'title' => 'Accueil',
-            'top_recipes' => $recipeManager->getTop3Recipes(),
-            'recipes_menu' => $recipeManager->getRecipesMenu(),
-        ]);
+    $topRecipes = [];
+
+    foreach ($recipeManager->getTop3Recipes() as $item) {
+        $recipe = $item['recipe'];
+
+        $topRecipes[] = [
+            'recipe_slug_title' => $recipe->getRecipeSlugTitle(),
+            'recipe_title' => $recipe->getRecipeTitle(),
+            'main_pic' => $recipe->getMainPic(),
+            'difficulty' => $recipe->getDifficulty(),
+            'average_rating' => $item['average_rating'],
+            'vote_count' => $item['vote_count'],
+            'total_time' => $item['total_time'],
+        ];
     }
+
+    return $this->twig->render('home.html.twig', [
+        'title' => 'Accueil',
+        'top_recipes' => $topRecipes,
+        'recipes_menu' => $recipeManager->getRecipesMenu(),
+    ]);
+}
 }
