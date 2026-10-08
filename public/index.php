@@ -13,6 +13,7 @@ $rootPath = dirname(__DIR__);
 
 // Autoload Composer
 require_once $rootPath . '/vendor/autoload.php';
+require_once $rootPath . '/config/Database.php';
 
 // Configuration de Twig
 $loader = new FilesystemLoader($rootPath . '/view');
