@@ -87,7 +87,7 @@ class CommentManager implements ManagerInterface
                     'user_login' => $row['user_login'],
                 ]);
 
-                $comment->setAuthor($author);
+                $comment->setUser($author);
 
                 $comments[] = $comment;
             }
@@ -143,7 +143,7 @@ class CommentManager implements ManagerInterface
 
             $comment = new CommentMapping($row);
 
-            $comment->setAuthor(
+            $comment->setUser(
                 new UserMapping([
                     'user_id' => $row['user_id'],
                     'user_login' => $row['user_login'],
