@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Identité Maison Rosalie : la typographie manuscrite du Figma est
+   approchée par Allura tant que la police exacte n'est pas fournie. */
+.rosalie-script {
+    font-family: "Allura", "Segoe Script", "Brush Script MT", cursive;
+    font-weight: 400;
+}
+
+/* Ornements SVG fournis dans le dépôt : recoloration CSS (fichier intact). */
+.rosalie-gold-ornament {
+    filter: brightness(0) saturate(100%) invert(58%) sepia(51%)
+            saturate(493%) hue-rotate(3deg) brightness(92%) contrast(89%);
+}
+
+/* Texture vert sauge de la maquette. */
+.rosalie-sage-bg {
+    background-color: #b3be98;
+    background-image: linear-gradient(rgba(179, 190, 152, .89), rgba(179, 190, 152, .89)),
+                      url("../images/decorative/background-texture.jpg");
+    background-size: cover;
+    background-position: center;
+}
