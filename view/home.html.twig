@@ -4,79 +4,28 @@
 
 <div class="min-h-screen bg-[#d7d5c2] font-serif text-[#32452b]">
 
-    {# NAVIGATION #}
-    <header class="px-6 pt-8">
-        <nav aria-label="Navigation principale">
-            <ul class="flex flex-wrap justify-center gap-4">
-                <li>
-                    <a href="?pg=home"
-                       aria-current="page"
-                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
-                        Accueil
-                    </a>
-                </li>
-
-                <li>
-                    <a href="?pg=about"
-                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
-                        À propos
-                    </a>
-                </li>
-
-                <li>
-                    <a href="?pg=recipes"
-                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
-                        Recettes
-                    </a>
-                </li>
-
-                <li>
-                    <a href="?pg=contact"
-                       class="block rounded-[50%] border border-[#b6c38f] px-6 py-2 text-xs uppercase">
-                        Contact
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-
     <main>
 
-        {# HERO : LOGO ET PLATEAU #}
-        <section aria-labelledby="home-title" class="pt-10">
+        {# Le grand logo est déjà dans le header commun. Le plateau chevauche la jonction crème / vert. #}
+        <section aria-labelledby="home-title" class="relative isolate">
+            <h1 id="home-title" class="sr-only">Maison Rosalie</h1>
 
-            <div class="flex flex-col items-center px-6">
-                <img
-                    src="assets/images/shared/logo-gold.svg"
-                    alt=""
-                    class="h-24 w-auto"
-                >
+            <div class="rosalie-sage-bg relative pb-12 pt-[110px] text-center md:pb-16 md:pt-[125px] xl:pt-[145px]">
+                <img src="assets/images/home/tray-with-ribbon.png"
+                     alt="Un plateau de chocolats Maison Rosalie"
+                     class="pointer-events-none absolute left-1/2 top-[-130px] z-10 h-[270px] w-auto max-w-none -translate-x-1/2 object-contain md:top-[-205px] md:h-[415px] xl:top-[-215px] xl:h-[445px]" >
 
-                <h1 id="home-title" class="mt-3 text-3xl uppercase">
-                    Maison Rosalie
-                </h1>
-
-                <div class="relative mt-4 h-28 w-full max-w-xl">
-                    <img
-                        src="assets/images/home/tray-with-ribbon.png"
-                        alt="Un plateau de chocolats Maison Rosalie"
-                        class="absolute left-1/2 top-0 z-10 h-52 w-auto max-w-full -translate-x-1/2 object-contain"
-                    >
+                <div class="relative z-20 mx-auto max-w-2xl px-6">
+                    <p class="rosalie-script text-[34px] leading-[0.95] text-[#30422e] md:text-[52px]">
+                        Des créations d’exception<br>
+                        pour des moments précieux
+                    </p>
+                    <a href="?pg=recipes"
+                       class="mt-8 inline-block rounded-full bg-[#481915] px-8 py-2.5 font-sans text-xs uppercase tracking-[0.10em] text-white hover:bg-[#6b2923] md:mt-9">
+                        Découvrir nos recettes
+                    </a>
                 </div>
             </div>
-
-            <div class="bg-[#b6c38f] px-6 pb-10 pt-24 text-center">
-                <p class="text-3xl italic leading-relaxed">
-                    Des créations d’exception<br>
-                    pour des moments précieux
-                </p>
-
-                <a href="?pg=recipes"
-                   class="mt-6 inline-block rounded-[50%] bg-[#481915] px-8 py-3 font-sans text-xs text-white uppercase">
-                    Découvrir nos recettes
-                </a>
-            </div>
-
         </section>
 
         {# GRANDE PHOTO DES COFFRETS #}
@@ -255,19 +204,6 @@
         </section>
 
     </main>
-
-    <footer class="border-t border-[#b17b12] px-6 py-8 text-center">
-        <p class="text-lg uppercase">Maison Rosalie</p>
-
-        <a href="mailto:contact@maisonrosalie.be"
-           class="mt-3 inline-block text-sm">
-            contact@maisonrosalie.be
-        </a>
-
-        <p class="mt-4 text-xs">
-            © 2026 Maison Rosalie — Tous droits réservés
-        </p>
-    </footer>
 
 </div>
 
