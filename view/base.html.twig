@@ -11,10 +11,12 @@
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class="min-h-screen bg-[#eae6d8] text-[#30422e]">
+    {% include 'template/auth-modal.html.twig' %}
     {% include 'template/header.html.twig' %}
 
     {% block body %}{% endblock %}
 
     {% include 'template/footer.html.twig' %}
+    <script src="assets/js/auth-modal.js" defer></script>
 </body>
 </html>
