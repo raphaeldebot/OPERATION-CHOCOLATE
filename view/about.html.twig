@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<main class="bg-[#b6c38f] text-[#30422e]">
+
+    <section class="mx-auto max-w-[1427px]
+                    px-6 py-16 text-center">
+
+        {# TITRE #}
+        <h1 class="font-serif text-4xl uppercase
+                   tracking-widest text-[#b68d32]
+                   md:text-6xl">
+            À propos
+        </h1>
+
+        {# FACADE MAISON ROSALIE #}
+        <img
+            src="assets/images/about/about-hero.png"
+            alt="Façade illustrée de Maison Rosalie"
+            class="mx-auto mt-12 w-full max-w-[900px]
+                   object-contain"
+        >
+
+        {# MONOGRAMME ET SLOGAN #}
+        <div class="mx-auto mt-16 max-w-[640px]
+                    rounded-[50%] border border-[#b68d32]
+                    px-8 py-12">
+
+            <img
+                src="assets/images/about/about-monogram.svg"
+                alt=""
+                class="mx-auto mb-5 h-16 w-auto"
+            >
+
+            <h2 class="font-serif text-2xl md:text-4xl">
+                L'élégance du chocolat belge
+                depuis 1928
+            </h2>
+        </div>
+
+        {# HISTOIRE #}
+        <div class="mx-auto mt-20 max-w-[700px]
+                    space-y-8 text-lg leading-relaxed">
+
+            <p>
+                Inspirée par l'art de vivre belge
+                et les grandes maisons européennes,
+                Rosalie a imaginé des chocolats
+                conçus comme des bijoux gustatifs.
+            </p>
+
+            <p>
+                Chaque création est une rencontre
+                entre la noblesse des matières premières,
+                la précision artisanale et une
+                élégance intemporelle.
+            </p>
+
+            <p>
+                Plus qu'une chocolaterie,
+                Maison Rosalie est une maison où
+                chaque détail célèbre l'art du chocolat,
+                la finesse, la délicatesse
+                et le raffinement.
+            </p>
+
+            <p>
+                Rosalie a rencontré un tel succès
+                qu'elle a voulu se lancer dans
+                la création de recettes à base
+                de son chocolat, celui qu'elle utilise
+                pour ses délicieuses pralines.
+            </p>
+
+            <p>
+                Vous découvrirez ici quelques
+                merveilleuses recettes facilement
+                réalisables.
+            </p>
+
+            <p class="rosalie-script text-4xl">
+                Bonne dégustation.
+            </p>
+        </div>
+
+    </section>
+
+    {# PHOTO DE L'ATELIER #}
+    <section aria-label="Atelier Maison Rosalie">
+        <img
+            src="assets/images/home/carousel-06.png"
+            alt="Préparation artisanale de chocolats"
+            class="h-[280px] w-full object-cover
+                   md:h-[500px] lg:h-[610px]"
+            loading="lazy"
+        >
+    </section>
+
+    <div class="h-24 md:h-40"></div>
+
+</main>
+
+{% endblock %}
