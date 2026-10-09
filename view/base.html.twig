@@ -10,11 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
+
+{% include 'template/auth-modal.html.twig' %}
+
 <body class="min-h-screen bg-[#eae6d8] text-[#30422e]">
     {% include 'template/header.html.twig' %}
 
     {% block body %}{% endblock %}
 
     {% include 'template/footer.html.twig' %}
+
+<script src="assets/js/auth-modal.js"></script>
 </body>
 </html>
