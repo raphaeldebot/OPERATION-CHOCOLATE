@@ -26,7 +26,7 @@
                     {{ recipe.recipeDescription }}
                 </p>
 
-                <p id="recipe-header-rating"class="mt-6 text-[#a78337]">
+                <p id="recipe-header-rating" class="mt-6 text-[#a78337]">
                     {% if vote_count > 0 %}
                         ★ {{ average_rating|number_format(1) }}/5
                         ({{ vote_count }} avis)
