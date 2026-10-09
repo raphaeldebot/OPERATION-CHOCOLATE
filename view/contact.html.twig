@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<main class="min-h-screen bg-[#d7d5c2] px-6 py-20">
+
+    <div id="contact-layout"
+         class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
+
+        <section class="bg-[#53604a] p-8 text-[#fbf9f0]">
+            <h1 class="rosalie-script text-5xl">
+                Contactez-nous
+            </h1>
+
+            <p class="mt-8 text-xl italic">
+                Une question, une suggestion ou simplement
+                envie de nous dire bonjour ?
+                Nous serons ravis de vous lire.
+            </p>
+
+            <p class="mt-8">
+                contact@maisonrosalie.be
+            </p>
+        </section>
+
+        <form id="contact-form"
+              action="?pg=api-contact"
+              method="post"
+              class="space-y-5 bg-[#53604a] p-8 text-white">
+
+            <input type="hidden"
+                   name="_csrf"
+                   value="{{ csrf_token }}">
+
+            {% set fields = {
+                'contact_message_name': 'Nom & Prénom',
+                'contact_message_email': 'Adresse mail',
+                'contact_message_sujet': 'Sujet'
+            } %}
+
+            {% for name, label in fields %}
+
+                {% set maxLength = 255 %}
+
+                {% if name == 'contact_message_name' %}
+                    {% set maxLength = 100 %}
+                {% elseif name == 'contact_message_sujet' %}
+                    {% set maxLength = 120 %}
+                {% endif %}
+
+                <div>
+                    <label for="{{ name }}"
+                           class="mb-2 block">
+                        {{ label }}
+                    </label>
+
+                    <input
+                        id="{{ name }}"
+                        name="{{ name }}"
+                        type="{{ name == 'contact_message_email' ? 'email' : 'text' }}"
+                        maxlength="{{ maxLength }}"
+                        required
+                        class="w-full bg-white p-3 text-[#30422e]"
+                    >
+                </div>
+
+            {% endfor %}
+
+            <div>
+                <label for="contact-message"
+                       class="mb-2 block">
+                    Message
+                </label>
+
+                <textarea
+                    id="contact-message"
+                    name="contact_message_message"
+                    required
+                    rows="5"
+                    class="w-full bg-white p-3 text-[#30422e]"
+                ></textarea>
+            </div>
+
+            <p id="contact-status"
+               role="status"
+               aria-live="polite"></p>
+
+            <button type="submit"
+                    class="rounded-full bg-[#b68d32]
+                           px-8 py-3 disabled:opacity-50">
+                Envoyer →
+            </button>
+
+        </form>
+
+    </div>
+
+    <section id="contact-success"
+             role="status"
+             class="mx-auto hidden max-w-5xl
+                    bg-[#53604a] p-16 text-center text-white">
+
+        <h2 class="font-serif text-5xl">
+            Message envoyé ✓
+        </h2>
+
+    </section>
+
+</main>
+
+<script src="assets/js/contact.js" defer></script>
+
+{% endblock %}
