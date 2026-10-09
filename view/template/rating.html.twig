@@ -1,0 +1,80 @@
+<section id="recipe-rating"
+         data-recipe-id="{{ recipe.recipeId }}"
+         data-user-rating="{{ user_rating|default(0) }}"
+         class="my-10 border-y border-[#b68d32] py-8
+                text-center text-[#30422e]">
+
+    <h2 class="font-serif text-3xl">
+        Votre avis compte
+    </h2>
+
+    {# MOYENNE ACTUELLE #}
+    <div class="mt-4">
+        <span id="rating-average"
+              class="text-2xl text-[#b68d32]">
+            {% if vote_count > 0 %}
+                {{ average_rating|number_format(1, ',', ' ') }}/5
+            {% else %}
+                Pas encore de note
+            {% endif %}
+        </span>
+
+        <p id="rating-count" class="mt-2 text-sm">
+            {{ vote_count }} avis
+        </p>
+    </div>
+
+    {# ETOILES INTERACTIVES #}
+    <div data-rating-controls class="mt-6 hidden">
+
+        <p class="mb-3">Notez cette recette</p>
+
+        <div class="flex justify-center gap-2"
+             role="group"
+             aria-label="Attribuer une note de 1 à 5">
+
+            {% for star in 1..5 %}
+                <button
+                    type="button"
+                    data-rate-value="{{ star }}"
+                    aria-label="Attribuer {{ star }} sur 5"
+                    aria-pressed="{{ user_rating|default(0) == star ? 'true' : 'false' }}"
+                    class="text-4xl transition-transform
+                           hover:scale-110
+                           focus-visible:outline-2
+                           focus-visible:outline-[#b68d32]
+                           {{ user_rating|default(0) >= star
+                              ? 'text-[#b68d32]'
+                              : 'text-[#929985]' }}">
+                    ★
+                </button>
+            {% endfor %}
+
+        </div>
+
+        <p id="rating-personal" class="mt-3 text-sm">
+            {% if user_rating is not null %}
+                Votre note : {{ user_rating }}/5
+            {% endif %}
+        </p>
+    </div>
+
+    {# UTILISATEUR NON CONNECTE #}
+    <div data-rating-guest class="mt-6">
+        <p>Connectez-vous pour noter cette recette.</p>
+
+        <button type="button"
+                data-rating-login
+                class="mt-4 rounded-full bg-[#481915]
+                       px-6 py-3 text-white
+                       hover:bg-[#6b2923]">
+            Se connecter
+        </button>
+    </div>
+
+    <p id="rating-status"
+       role="status"
+       aria-live="polite"
+       class="mt-4 text-sm"></p>
+
+</section>
