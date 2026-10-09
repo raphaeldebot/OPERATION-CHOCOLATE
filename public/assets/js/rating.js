@@ -1,131 +1,236 @@
-document.addEventListener("DOMContentLoaded", async () => {
-    const rating = document.getElementById("recipe-rating");
 
-    if (!rating) return;
+document.addEventListener("DOMContentLoaded", () => {
+    const section = document.getElementById("recipe-rating");
+    if (!section) return;
 
-    const recipeId = Number(rating.dataset.recipeId);
-    const controls = rating.querySelector("[data-rating-controls]");
-    const guest = rating.querySelector("[data-rating-guest]");
-    const stars = rating.querySelectorAll("[data-rate-value]");
+    const recipeId = Number(section.dataset.recipeId);
+    if (!Number.isInteger(recipeId) || recipeId <= 0) return;
+
+    const controls = section.querySelector("[data-rating-controls]");
+    const guest = section.querySelector("[data-rating-guest]");
+    const stars = [...section.querySelectorAll("[data-rate-value]")];
 
     const average = document.getElementById("rating-average");
+    const fill = document.getElementById("rating-average-fill");
     const count = document.getElementById("rating-count");
     const personal = document.getElementById("rating-personal");
     const status = document.getElementById("rating-status");
+    const header = document.getElementById("recipe-header-rating");
 
+    let userRating = Number(section.dataset.userRating) || 0;
     let csrfToken = null;
-    let userRating = Number(rating.dataset.userRating || 0);
+    let connected = false;
+    let pending = false;
 
-    function updateStars(value) {
-        stars.forEach((star) => {
+    // Afficher la sélection ou le survol
+    function renderStars(value = userRating) {
+        stars.forEach(star => {
             const starValue = Number(star.dataset.rateValue);
-            const selected = starValue <= value;
 
-            star.classList.toggle("text-[#b68d32]", selected);
-            star.classList.toggle("text-[#929985]", !selected);
+            star.classList.toggle(
+                "text-[#b68d32]",
+                starValue <= value
+            );
+
+            star.classList.toggle(
+                "text-[#929985]",
+                starValue > value
+            );
 
             star.setAttribute(
                 "aria-pressed",
-                starValue === value ? "true" : "false"
+                String(starValue === userRating)
             );
         });
     }
 
+    function renderPersonalRating() {
+        personal.textContent = userRating > 0
+            ? `Votre note : ${userRating}/5`
+            : "Sélectionnez une étoile";
+    }
+
+    // Mettre à jour les deux moyennes affichées
+    function updateAverage(averageRating, voteCount) {
+        const score = Number(averageRating);
+        const votes = Number(voteCount);
+
+        if (
+            !Number.isFinite(score) ||
+            score < 0 ||
+            score > 5 ||
+            !Number.isInteger(votes) ||
+            votes < 0
+        ) {
+            throw new Error("Données de notation invalides.");
+        }
+
+        const formatted = score.toLocaleString("fr-BE", {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+        });
+
+        const label = votes > 0
+            ? `${formatted}/5`
+            : "Pas encore de note";
+
+        average.textContent = label;
+        count.textContent = `${votes} avis`;
+
+        // Remplissage des étoiles
+        fill.style.width = votes > 0
+            ? `${score * 20}%`
+            : "0%";
+
+        // Moyenne dans l'en-tête de la recette
+        if (header) {
+            header.textContent = votes > 0
+                ? `★ ${label} (${votes} avis)`
+                : "Pas encore de note";
+        }
+    }
+
+    // Vérifier la session et récupérer le token CSRF
     async function loadUser() {
         try {
             const response = await fetch("?pg=api-me", {
+                credentials: "same-origin",
+                cache: "no-store",
                 headers: {
-                    Accept: "application/json",
-                },
+                    Accept: "application/json"
+                }
             });
 
             const result = await response.json();
 
-            if (!response.ok || !result.success) {
-                throw new Error("Impossible de récupérer l'utilisateur");
+            if (!response.ok || !result.success || !result.data) {
+                throw new Error("Session indisponible.");
             }
 
             csrfToken = result.data.csrf_token;
+            connected = Boolean(result.data.user);
 
-            if (result.data.user) {
-                controls.classList.remove("hidden");
-                guest.classList.add("hidden");
+            controls.classList.toggle("hidden", !connected);
+            guest.classList.toggle("hidden", connected);
 
-                updateStars(userRating);
-            } else {
-                controls.classList.add("hidden");
-                guest.classList.remove("hidden");
+            if (!connected) {
+                userRating = 0;
             }
+
+            renderStars();
+            renderPersonalRating();
+
         } catch (error) {
-            console.error(error);
+            connected = false;
+            csrfToken = null;
+
+            controls.classList.add("hidden");
+            guest.classList.remove("hidden");
 
             status.textContent =
-                "Impossible de charger le système de notation.";
+                "Impossible de vérifier votre session.";
         }
     }
 
+    // Envoyer la note à l'API PHP
     async function sendRating(value) {
+        if (pending || !connected) return;
+        if (!Number.isInteger(value) || value < 1 || value > 5) return;
+
+        pending = true;
+        stars.forEach(star => star.disabled = true);
         status.textContent = "Enregistrement...";
 
-        const formData = new FormData();
-
-        formData.append("recipe_id", recipeId);
-        formData.append("note_value", value);
-        formData.append("_csrf", csrfToken);
-
         try {
-            const response = await fetch("?pg=api-note-rate", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    Accept: "application/json",
-                },
-            });
+            if (!csrfToken) {
+                await loadUser();
 
-            const result = await response.json();
-
-            if (!response.ok || !result.success) {
-                status.textContent =
-                    result.message || "Impossible d'enregistrer la note.";
-
-                return;
+                if (!connected || !csrfToken) {
+                    throw new Error("Connectez-vous pour voter.");
+                }
             }
 
-            userRating = Number(result.data.note);
+            const formData = new FormData();
+            formData.append("recipe_id", String(recipeId));
+            formData.append("note_value", String(value));
+            formData.append("_csrf", csrfToken);
 
-            updateStars(userRating);
+            const response = await fetch("?pg=api-note-rate", {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    Accept: "application/json"
+                },
+                body: formData
+            });
 
-            personal.textContent =
-                `Votre note : ${userRating}/5`;
+            let result;
 
-            average.textContent =
-                `${Number(result.data.average_rating)
-                    .toFixed(1)
-                    .replace(".", ",")}/5`;
+            try {
+                result = await response.json();
+            } catch {
+                throw new Error("Réponse du serveur invalide.");
+            }
 
-            const voteCount = Number(result.data.vote_count);
+            if (!response.ok || !result.success) {
+                if (response.status === 401 || response.status === 403) {
+                    await loadUser();
+                }
 
-            count.textContent =
-                `${voteCount} ${voteCount > 1 ? "avis" : "avis"}`;
+                throw new Error(
+                    result.message || "Impossible d'enregistrer la note."
+                );
+            }
 
-            status.textContent = result.message;
+            const nextRating = Number(result.data?.note);
+            const nextAverage = Number(result.data?.average_rating);
+            const nextCount = Number(result.data?.vote_count);
+
+            if (
+                !Number.isInteger(nextRating) ||
+                nextRating < 1 ||
+                nextRating > 5 ||
+                !Number.isFinite(nextAverage) ||
+                nextAverage < 1 ||
+                nextAverage > 5 ||
+                !Number.isInteger(nextCount) ||
+                nextCount < 1
+            ) {
+                throw new Error("Réponse de notation invalide.");
+            }
+
+            // Actualiser la moyenne avant de confirmer le vote
+            updateAverage(nextAverage, nextCount);
+
+            userRating = nextRating;
+            renderStars();
+            renderPersonalRating();
+
+            status.textContent = "Votre note a bien été enregistrée !";
+
         } catch (error) {
-            console.error(error);
+            renderStars();
+            status.textContent = error.message ||
+                "Une erreur est survenue.";
 
-            status.textContent =
-                "Une erreur est survenue. Réessayez.";
+        } finally {
+            pending = false;
+            stars.forEach(star => star.disabled = false);
         }
     }
 
-    stars.forEach((star) => {
-        star.addEventListener("click", () => {
-            const value = Number(star.dataset.rateValue);
+    // Survol, clavier et clic
+    stars.forEach(star => {
+        const value = Number(star.dataset.rateValue);
 
-            if (value < 1 || value > 5) return;
-
-            sendRating(value);
-        });
+        star.addEventListener("mouseenter", () => renderStars(value));
+        star.addEventListener("mouseleave", () => renderStars());
+        star.addEventListener("focus", () => renderStars(value));
+        star.addEventListener("blur", () => renderStars());
+        star.addEventListener("click", () => sendRating(value));
     });
 
-    await loadUser();
+    renderStars();
+    renderPersonalRating();
+    loadUser();
 });
