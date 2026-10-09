@@ -8,6 +8,24 @@
         Votre avis compte
     </h2>
 
+    {# AFFICHAGE VISUEL DE LA MOYENNE #}
+    <div class="my-3 flex justify-center">
+        <div class="relative inline-block text-3xl leading-none tracking-[0.12em]"
+            aria-hidden="true">
+
+            {# Étoiles vides #}
+            <span class="text-[#929985]">★★★★★</span>
+
+            {# Étoiles remplies #}
+            <span id="rating-average-fill"
+                class="pointer-events-none absolute inset-y-0 left-0
+                        overflow-hidden whitespace-nowrap text-[#b68d32]"
+                style="width: {{ (average_rating|default(0) * 20)|round }}%">
+                ★★★★★
+            </span>
+        </div>
+    </div>
+    
     {# MOYENNE ACTUELLE #}
     <div class="mt-4">
         <span id="rating-average"
