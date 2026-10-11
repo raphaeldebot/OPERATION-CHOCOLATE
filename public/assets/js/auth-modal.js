@@ -116,9 +116,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
             form.reset();
 
+            // Après inscription : proposer la connexion
+            if (form === registerForm) {
+                showForm("login");
+
+                document.getElementById("login-status").textContent =
+                    "Compte créé ! Connectez-vous.";
+
+                return;
+            }
+
+            // Après connexion : fermer la fenêtre
             closeModal();
 
-            window.location.reload();
+            // Forcer la récupération d'un token CSRF à jour
+            csrfToken = null;
+
+            // Prévenir le menu et les autres composants
+            document.dispatchEvent(new Event("auth:changed"));
+
         } catch (error) {
             console.error(error);
 
