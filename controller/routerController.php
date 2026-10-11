@@ -122,6 +122,18 @@ case 'api-comment-delete':
         ->delete($readInput());
     break;
 // Notes
+case 'api-note-me':
+    if (!$requireMethod('GET')) break;
+
+    $recipeId = filter_var(
+        $_GET['recipe_id'] ?? null,
+        FILTER_VALIDATE_INT
+    );
+
+    echo (new NoteController($connectDB))->mine(
+        is_int($recipeId) ? $recipeId : 0
+    );
+    break;
 case 'api-note-rate':
     if (!$requireMethod('POST')) break;
     echo (new NoteController($connectDB))

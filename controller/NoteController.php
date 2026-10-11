@@ -102,6 +102,49 @@ public function rate(array $data): string
         );
     }
 }
+    // Récupérer la note personnelle de l'utilisateur connecté
+    public function mine(int $recipeId): string
+    {
+        $userId = $_SESSION['user']['user_id'] ?? null;
+
+        // Connexion obligatoire
+        if (!is_int($userId) || $userId <= 0) {
+            return $this->json(
+                false, 'Connexion requise', null, 401
+            );
+        }
+
+        // Vérifier l'identifiant de la recette
+        if ($recipeId <= 0) {
+            return $this->json(
+                false, 'Recette invalide', null, 400
+            );
+        }
+
+        try {
+            // Récupérer la note enregistrée en base
+            $note = $this->noteManager->getUserRating(
+                $recipeId,
+                $userId
+            );
+
+            return $this->json(
+                true,
+                'Note récupérée',
+                ['note' => $note?->getNoteValue()]
+            );
+
+        } catch (\Throwable $e) {
+            error_log($e->getMessage());
+
+            return $this->json(
+                false,
+                'Impossible de récupérer la note',
+                null,
+                500
+            );
+        }
+    }
 // Vérification CSRF
 private function validCsrf(array $data): bool
 {
