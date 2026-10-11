@@ -214,6 +214,42 @@ class RecipeManager implements ManagerInterface
         }
     }
 
+    // Récupérer 3 autres recettes à découvrir
+    public function getOtherRecipes(int $currentRecipeId): array
+    {
+        $sql = "
+            SELECT
+                recipe_id,
+                recipe_title,
+                recipe_slug_title,
+                main_pic
+            FROM recipe
+            WHERE recipe_id != ?
+            ORDER BY created_at DESC, recipe_id DESC
+            LIMIT 3
+        ";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([$currentRecipeId]);
+
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+
+            $recipes = [];
+
+            foreach ($rows as $row) {
+                $recipes[] = new RecipeMapping($row);
+            }
+
+            return $recipes;
+
+        } catch (Exception $e) {
+            error_log($e->getMessage());
+            return [];
+        }
+    }
+
     // Top 3 pour la page d'accueil
     public function getTop3Recipes(): array
     {
