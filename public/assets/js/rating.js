@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let csrfToken = null;
     let connected = false;
     let pending = false;
+    let sessionRequestId = 0;
 
     // Afficher la sélection ou le survol
     function renderStars(value = userRating) {
@@ -48,6 +49,41 @@ document.addEventListener("DOMContentLoaded", () => {
         personal.textContent = userRating > 0
             ? `Votre note : ${userRating}/5`
             : "Sélectionnez une étoile";
+    }
+
+    // Récupérer la note personnelle depuis l'API
+    async function getMyRating() {
+        const response = await fetch(
+            `?pg=api-note-me&recipe_id=${recipeId}`,
+            {
+                credentials: "same-origin",
+                cache: "no-store",
+                headers: {
+                    Accept: "application/json"
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.message || "Impossible de récupérer votre note."
+            );
+        }
+
+        const note = result.data?.note;
+
+        // L'utilisateur n'a pas encore noté cette recette
+        if (note === null) return 0;
+
+        const value = Number(note);
+
+        if (!Number.isInteger(value) || value < 1 || value > 5) {
+            throw new Error("Note personnelle invalide.");
+        }
+
+        return value;
     }
 
     // Mettre à jour les deux moyennes affichées
@@ -90,8 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Vérifier la session et récupérer le token CSRF
+
+    // Vérifier la session et récupérer la note personnelle
     async function loadUser() {
+        const requestId = ++sessionRequestId;
+
         try {
             const response = await fetch("?pg=api-me", {
                 credentials: "same-origin",
@@ -103,34 +142,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const result = await response.json();
 
+            if (requestId !== sessionRequestId) return;
+
             if (!response.ok || !result.success || !result.data) {
                 throw new Error("Session indisponible.");
             }
 
-            csrfToken = result.data.csrf_token;
-            connected = Boolean(result.data.user);
+            const isConnected = Boolean(result.data.user);
+            const token = result.data.csrf_token;
 
+            // Par défaut, aucune note personnelle
+            let savedRating = 0;
+
+            // Si connecté, récupérer l'ancienne note en base
+            if (isConnected) {
+                savedRating = await getMyRating();
+
+                // Ignorer une ancienne réponse après changement de session
+                if (requestId !== sessionRequestId) return;
+            }
+
+            connected = isConnected;
+            csrfToken = token;
+            userRating = savedRating;
+
+            // Afficher ou masquer les boutons de notation
             controls.classList.toggle("hidden", !connected);
             guest.classList.toggle("hidden", connected);
-
-            if (!connected) {
-                userRating = 0;
-            }
 
             renderStars();
             renderPersonalRating();
 
+            status.textContent = "";
+
         } catch (error) {
+            if (requestId !== sessionRequestId) return;
+
             connected = false;
             csrfToken = null;
+            userRating = 0;
 
             controls.classList.add("hidden");
             guest.classList.remove("hidden");
 
+            renderStars();
+            renderPersonalRating();
+
             status.textContent =
-                "Impossible de vérifier votre session.";
+                error.message || "Impossible de récupérer votre note.";
         }
     }
+
 
     // Envoyer la note à l'API PHP
     async function sendRating(value) {
