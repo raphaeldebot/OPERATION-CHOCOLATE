@@ -76,6 +76,21 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     }
 
+    // Actualiser les commentaires après connexion/déconnexion
+    document.addEventListener("auth:changed", () => {
+        user = null;
+        csrfToken = null;
+
+        form.classList.add("hidden");
+        guest.classList.remove("hidden");
+
+        updateDeleteButtons();
+
+        refreshSession().catch(error => {
+            listStatus.textContent = error.message;
+        });
+    });
+
     function updateEmptyState() {
         const hasComments = Boolean(
             list.querySelector("article[data-comment-id]")

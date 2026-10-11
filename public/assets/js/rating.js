@@ -230,6 +230,23 @@ document.addEventListener("DOMContentLoaded", () => {
         star.addEventListener("click", () => sendRating(value));
     });
 
+    // Actualiser les étoiles après connexion/déconnexion
+    document.addEventListener("auth:changed", () => {
+        connected = false;
+        csrfToken = null;
+        userRating = 0;
+
+        // Masquer temporairement les boutons de vote
+        controls.classList.add("hidden");
+        guest.classList.remove("hidden");
+
+        renderStars();
+        renderPersonalRating();
+
+        // Récupérer la nouvelle session
+        loadUser();
+    });
+
     renderStars();
     renderPersonalRating();
     loadUser();
