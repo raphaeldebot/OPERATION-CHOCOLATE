@@ -120,6 +120,69 @@
     {# COMMENTAIRES #}
     {% include 'template/comments.html.twig' %}
 
+    {# AUTRES RECETTES À DÉCOUVRIR #}
+    {% if other_recipes|default([]) is not empty %}
+
+    <section class="mx-auto max-w-6xl px-6 py-16">
+
+        <h2 class="mb-10 text-center font-serif text-3xl">
+            D'autres recettes à découvrir
+        </h2>
+
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+            {% for otherRecipe in other_recipes %}
+
+                <article class="overflow-hidden rounded-xl
+                                bg-[#d7d5c2]">
+
+                    <a href="?pg=recipe&amp;slug={{ otherRecipe.getRecipeSlugTitle()|url_encode }}"
+                    class="block">
+
+                        {% if otherRecipe.getMainPic() %}
+
+                            <img
+                                src="{{ otherRecipe.getMainPic() }}"
+                                alt="{{ otherRecipe.getRecipeTitle() }}"
+                                class="aspect-[4/3] w-full object-cover"
+                                loading="lazy"
+                            >
+
+                        {% else %}
+
+                            <div class="flex aspect-[4/3]
+                                        items-center justify-center
+                                        bg-[#a7ad8d]">
+                                Photo à venir
+                            </div>
+
+                        {% endif %}
+
+                        <div class="p-6">
+
+                            <h3 class="font-serif text-2xl">
+                                {{ otherRecipe.getRecipeTitle() }}
+                            </h3>
+
+                            <span class="mt-4 inline-block
+                                        text-[#481915] underline">
+                                Voir la recette →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
     {# RETOUR AUX RECETTES #}
     <div class="pb-12 text-center">
         <a href="?pg=recipes"
