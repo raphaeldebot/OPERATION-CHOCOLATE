@@ -17,10 +17,19 @@
                 envie de nous dire bonjour ?
                 Nous serons ravis de vous lire.
             </p>
+            <address class="mt-8 space-y-2 not-italic">
+                <p>Maison Rosalie</p>
+                <p>12, rue des Pralines</p>
+                <p>4000 Liège, Belgique</p>
+                <p class="text-sm italic">
+                    Adresse fictive — projet pédagogique
+                </p>
 
-            <p class="mt-8">
-                contact@maisonrosalie.be
-            </p>
+                <a href="mailto:contact@maisonrosalie.be"
+                class="inline-block underline">
+                    contact@maisonrosalie.be
+                </a>
+            </address>
         </section>
 
         <form id="contact-form"
@@ -53,15 +62,19 @@
                            class="mb-2 block">
                         {{ label }}
                     </label>
-
                     <input
                         id="{{ name }}"
                         name="{{ name }}"
                         type="{{ name == 'contact_message_email' ? 'email' : 'text' }}"
                         maxlength="{{ maxLength }}"
                         required
+                        aria-describedby="{{ name }}-error"
                         class="w-full bg-white p-3 text-[#30422e]"
                     >
+
+                    <p id="{{ name }}-error"
+                    class="mt-1 text-sm text-[#fff1bd]"
+                    aria-live="polite"></p>
                 </div>
 
             {% endfor %}
@@ -71,14 +84,18 @@
                        class="mb-2 block">
                     Message
                 </label>
-
                 <textarea
                     id="contact-message"
                     name="contact_message_message"
                     required
                     rows="5"
+                    aria-describedby="contact_message_message-error"
                     class="w-full bg-white p-3 text-[#30422e]"
                 ></textarea>
+
+                <p id="contact_message_message-error"
+                class="mt-1 text-sm text-[#fff1bd]"
+                aria-live="polite"></p>
             </div>
 
             <p id="contact-status"
@@ -94,6 +111,29 @@
         </form>
 
     </div>
+
+    <!-- LOCALISATION MAISON ROSALIE -->
+    <section class="mx-auto max-w-6xl px-6 pb-16"
+            aria-labelledby="contact-map-title">
+
+        <h2 id="contact-map-title"
+            class="mb-6 text-center font-serif text-3xl">
+            Nous trouver à Liège
+        </h2>
+
+        <iframe
+            title="Carte de Liège, localisation indicative"
+            src="https://www.google.com/maps?q=Li%C3%A8ge%2C%20Belgique&amp;output=embed"
+            class="h-[350px] w-full rounded-xl border-0 md:h-[450px]"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <p class="mt-3 text-center text-sm">
+            Localisation indicative — adresse fictive.
+        </p>
+
+    </section>
 
     <section id="contact-success"
              role="status"
