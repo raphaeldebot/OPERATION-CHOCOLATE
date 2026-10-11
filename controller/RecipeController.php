@@ -54,6 +54,10 @@ public function show(string $slug): string
     $comments = $commentManager->getCommentsByRecipeId(
         $data['recipe']->getRecipeId()
     );
+    // Récupérer 3 autres recettes à découvrir
+    $otherRecipes = $recipeManager->getOtherRecipes(
+        (int) $data['recipe']->getRecipeId()
+    );
     return $this->twig->render('recipe.html.twig', [
         'title' => $data['recipe']->getRecipeTitle(),
         'recipe' => $data['recipe'],
@@ -62,6 +66,7 @@ public function show(string $slug): string
         'user_rating' => $data['user_rating'],
         'total_time' => $data['total_time'],
         'comments' => $comments,
+        'other_recipes' => $otherRecipes,
         'recipes_menu' => $recipeManager->getRecipesMenu(),
     ]);
 }
