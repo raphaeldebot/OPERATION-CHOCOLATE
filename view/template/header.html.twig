@@ -1,29 +1,34 @@
-{# En-tête commun : les éléments décoratifs cadrent le logo et la navigation. #}
+
+{# En-tête commun Maison Rosalie #}
 <header class="rosalie-header relative z-20 bg-[#e9e6d8] text-[#30422e]">
+
     <div class="relative mx-auto h-[375px] w-full max-w-[1427px] md:h-[520px] xl:h-[600px]">
 
-       <img
-    src="assets/images/decorative/header-ornaments.png"
-    alt=""
-    aria-hidden="true"
-    class="pointer-events-none absolute left-1/2 top-0 z-0 w-full max-w-[860px] -translate-x-1/2 object-contain mix-blend-multiply"
->
-     
+        {# Cadre doré : on conserve sa largeur #}
+        <img
+            src="assets/images/decorative/header-ornaments.png"
+            alt=""
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-x-0 top-0 z-0 w-full object-contain"
+        >
 
-        {# Boutons de navigation, placés sous le fleuron. #}
-        <div class="absolute inset-x-4 top-[103px] z-30 md:top-[155px] xl:top-[190px]">
+        {# Navigation : sous l'ornement, juste au-dessus de la ligne #}
+        <div class="absolute inset-x-4 top-[103px] z-30 md:top-[min(17.4vw,248px)]">
             {% include 'template/navbar.html.twig' %}
         </div>
 
-        {# Le SVG contient déjà le monogramme ET le nom Maison Rosalie. #}
-        <a href="?pg=home"
-           aria-label="Maison Rosalie — Accueil"
-           class="absolute left-1/2 top-[154px] z-10 block -translate-x-1/2 md:top-[210px] xl:top-[255px]">
-            <img src="assets/images/shared/logo-gold.svg"
-                 alt="Maison Rosalie"
-                 class="h-[220px] w-auto max-w-none object-contain md:h-[280px] xl:h-[325px]" >
+        {# Logo : sous la ligne dorée #}
+        <a
+            href="?pg=home"
+            aria-label="Maison Rosalie — Accueil"
+            class="absolute left-1/2 top-[154px] z-10 block -translate-x-1/2 md:top-[min(24vw,340px)]"
+        >
+            <img
+                src="assets/images/shared/logo-gold.svg"
+                alt="Maison Rosalie"
+                class="h-[220px] w-auto max-w-none object-contain md:h-[280px] xl:h-[325px]"
+            >
         </a>
-   
 
     </div>
 </header>
