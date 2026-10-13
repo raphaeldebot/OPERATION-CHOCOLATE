@@ -436,42 +436,42 @@ VALUES
     1,
     'Étape 1',
     'Allumer le four à 180°C.',
-    ''
+    'assets/images/recipes/brownie-cookie/step-01.webp'
 ),
 (
     1,
     2,
     'Étape 2',
     'Dans un bol, mixer légèrement les oeufs à l''aide d''un fouet électrique de préférence, puis y ajouter le sucre, le café et battre fort pendant 10 minutes pour que le préparation triple de volume.',
-    ''
+    'assets/images/recipes/brownie-cookie/step-02.webp'
 ),
 (
     1,
     3,
     'Étape 3',
     'Placer le beurre et les deux chocolats en morceaux (pas les pépites) au-dessus d''un bain-marie, et lorsque le mélange est fondu et homogène retirer du feu et mélanger.',
-    ''
+    'assets/images/recipes/brownie-cookie/step-03.webp'
 ),
 (
     1,
     4,
     'Étape 4',
     'Ajouter le chocolat aux oeufs puis incorporer d-él-i-c-a-t-e-m-e-n-t la farine. Rajouter les pépites de chocolat. Laisser reposer dix minutes.',
-    ''
+    'assets/images/recipes/brownie-cookie/step-04.webp'
 ),
 (
     1,
     5,
     'Étape 5',
     'Faire des tas de l''équivalent d''une cuillère à soupe de pâte sur la plaque de four et enfourner 8 à 10 minutes, jusqu''à ce que les cookies se craquèlent.',
-    ''
+    'assets/images/recipes/brownie-cookie/step-05.webp'
 ),
 (
     1,
     6,
     'Étape 6',
     'Laisser refroidir avant de décoller.',
-    ''
+    'assets/images/recipes/brownie-cookie/step-06.webp'
 );
 
 
