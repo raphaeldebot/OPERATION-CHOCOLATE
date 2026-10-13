@@ -1,132 +1,44 @@
-
-{# Navbar indépendante, incluse uniquement par header.html.twig. #}
-<nav aria-label="Navigation principale" class="relative z-30">
-
-    {# ======================== #}
-    {# MENU MOBILE             #}
-    {# ======================== #}
-
-    <details class="mx-auto max-w-64 text-center md:hidden">
-        <summary class="cursor-pointer list-none rounded-full border border-[#b99d60] bg-[#e9e6d8] px-5 py-2 text-xs uppercase tracking-[0.19em]">
-            Menu ☰
-        </summary>
-
-        <div class="mt-2 flex flex-col gap-3 rounded-xl border border-[#b99d60] bg-[#e9e6d8] p-4 text-xs shadow-lg">
-
-            <a href="?pg=home">Accueil</a>
-            <a href="?pg=about">À propos</a>
-            <a href="?pg=recipes">Recettes</a>
-
-            {% for item in recipes_menu|default([])|slice(0, 5) %}
-                <a href="?pg=recipe&amp;slug={{ item.getRecipeSlugTitle()|url_encode }}">
-                    {{ item.getRecipeTitle() }}
-                </a>
-            {% endfor %}
-
-            <a href="?pg=contact">Contact</a>
-
-            {# Visiteur non connecté #}
-            <div data-auth-guest>
-                <button type="button"
-                        data-open-login
-                        class="text-[#a78337]">
-                    Connexion
-                </button>
-            </div>
-
-            {# Utilisateur connecté #}
-            <div data-auth-user class="hidden">
-                <span data-auth-name class="block"></span>
-
-                <button type="button"
-                        data-auth-logout
-                        class="mt-2 text-[#8c352d] underline">
-                    Déconnexion
-                </button>
-            </div>
-
-            {# Messages d'erreur ou de statut #}
-            <p data-auth-status
-               role="status"
-               aria-live="polite"
-               class="text-xs"></p>
-
-        </div>
-    </details>
-
-
-    {# ======================== #}
-    {# MENU ORDINATEUR         #}
-    {# ======================== #}
-
-    <div class="hidden items-center justify-center gap-3 md:flex">
-
-        <a href="?pg=home"
-           class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">
-            Accueil
-        </a>
-
-        <a href="?pg=about"
-           class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">
-            À propos
-        </a>
-
-        {# Menu déroulant Recettes #}
-        <details class="group relative">
-            <summary class="cursor-pointer list-none rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">
-                Recettes
-            </summary>
-
-            <div class="absolute left-1/2 top-full z-40 mt-2 w-60 -translate-x-1/2 rounded-lg border border-[#bda879] bg-[#e9e6d8] p-3 text-sm shadow-lg">
-
-                <a href="?pg=recipes"
-                   class="block py-2 font-semibold">
-                    Toutes les recettes
-                </a>
-
-                {% for item in recipes_menu|default([])|slice(0, 5) %}
-                    <a href="?pg=recipe&amp;slug={{ item.getRecipeSlugTitle()|url_encode }}"
-                       class="block py-2 hover:text-[#a78337]">
+<nav class="mr-nav" aria-label="Navigation principale">
+    <div class="mr-nav__desktop">
+        <a class="mr-nav__link" data-nav-page="home" href="?pg=home">Accueil</a>
+        <details class="mr-nav__dropdown">
+            <summary class="mr-nav__link" data-nav-page="recipes">Recettes <span aria-hidden="true">⌄</span></summary>
+            <div class="mr-nav__submenu">
+                <a href="?pg=recipes" class="mr-nav__submenu-title">Toutes les recettes</a>
+                {% for item in recipes_menu|default([]) %}
+                    <a href="?pg=recipe&amp;slug={{ item.getRecipeSlugTitle()|url_encode }}">
                         {{ item.getRecipeTitle() }}
                     </a>
                 {% endfor %}
-
             </div>
         </details>
-
-        <a href="?pg=contact"
-           class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em] hover:border-[#ad863a]">
-            Contact
-        </a>
-
-        {# Visiteur non connecté #}
-        <div data-auth-guest>
-            <button type="button"
-                    data-open-login
-                    class="rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em]">
-                Connexion
-            </button>
+        <a class="mr-nav__link" data-nav-page="about" href="?pg=about">À propos</a>
+        <a class="mr-nav__link" data-nav-page="contact" href="?pg=contact">Contact</a>
+        <div data-auth-guest><button type="button" data-open-login class="mr-nav__auth">Se connecter</button></div>
+        <div data-auth-user class="hidden mr-nav__user">
+            <span data-auth-name></span>
+            <button type="button" data-auth-logout class="mr-nav__auth">Déconnexion</button>
         </div>
-
-        {# Utilisateur connecté #}
-        <div data-auth-user class="hidden">
-
-            <span data-auth-name class="text-sm"></span>
-
-            <button type="button"
-                    data-auth-logout
-                    class="ml-3 rounded-full border border-[#bda879] px-5 py-1 text-[10px] uppercase tracking-[0.20em]">
-                Déconnexion
-            </button>
-
-        </div>
-
-        {# Messages d'erreur ou de statut #}
-        <p data-auth-status
-           role="status"
-           aria-live="polite"
-           class="text-xs"></p>
-
+        <p data-auth-status class="mr-nav__status" role="status" aria-live="polite"></p>
     </div>
-
+    <details class="mr-nav__mobile">
+        <summary aria-label="Afficher le menu principal" class="mr-nav__mobile-trigger">Menu <span aria-hidden="true">☰</span></summary>
+        <div class="mr-nav__mobile-panel">
+            <a href="?pg=home">Accueil</a>
+            <a href="?pg=recipes">Toutes les recettes</a>
+            {% for item in recipes_menu|default([]) %}
+                <a class="mr-nav__mobile-recipe" href="?pg=recipe&amp;slug={{ item.getRecipeSlugTitle()|url_encode }}">
+                    {{ item.getRecipeTitle() }}
+                </a>
+            {% endfor %}
+            <a href="?pg=about">À propos</a>
+            <a href="?pg=contact">Contact</a>
+            <div data-auth-guest><button type="button" data-open-login class="mr-nav__auth">Se connecter</button></div>
+            <div data-auth-user class="hidden mr-nav__user">
+                <span data-auth-name></span>
+                <button type="button" data-auth-logout class="mr-nav__auth">Déconnexion</button>
+            </div>
+            <p data-auth-status class="mr-nav__status" role="status" aria-live="polite"></p>
+        </div>
+    </details>
 </nav>
