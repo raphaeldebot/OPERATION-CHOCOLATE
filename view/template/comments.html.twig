@@ -3,8 +3,9 @@
 <section id="recipe-comments"
          data-recipe-id="{{ recipe.recipeId }}"
          data-comments-next-offset="{{ initial_comments|length }}"
-         class="mx-auto max-w-4xl px-6 py-16
-                text-[#30422e]">
+
+class="mx-auto max-w-4xl px-6 pb-16 pt-2 text-[#30422e]"
+>
 
     <h2 class="mb-10 border-b border-[#b68d32]
                pb-5 text-center font-serif text-4xl">
@@ -76,23 +77,11 @@
         </button>
     </form>
 
-    {# VISITEUR NON CONNECTE #}
-    <div id="comments-guest"
-         class="mb-12 rounded-lg bg-[#d7d5c2]
-                p-8 text-center">
 
-        <p class="mb-5">
-            Connectez-vous pour partager votre avis !
-        </p>
+{# Élément conservé pour la compatibilité avec comments.js.
+   L'invitation à se connecter est déjà dans rating.html.twig. #}
+<div id="comments-guest" hidden aria-hidden="true"></div>
 
-        <button type="button"
-                data-comments-login
-                data-open-login
-                class="rounded-full bg-[#481915]
-                       px-8 py-3 text-white">
-            Se connecter
-        </button>
-    </div>
 
     {# LISTE DES COMMENTAIRES #}
     <div id="comments-list" class="space-y-6">

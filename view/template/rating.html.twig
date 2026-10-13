@@ -1,35 +1,39 @@
-<section id="recipe-rating"
-         data-recipe-id="{{ recipe.recipeId }}"
-         data-user-rating="{{ user_rating|default(0) }}"
-         class="my-10 border-y border-[#b68d32] py-8
-                text-center text-[#30422e]">
 
-    <h2 class="font-serif text-3xl">
+<section
+    id="recipe-rating"
+    data-recipe-id="{{ recipe.recipeId }}"
+    data-user-rating="{{ user_rating|default(0) }}"
+    class="mx-auto max-w-4xl px-6 py-12 text-center text-[#30422e]"
+>
+    <h2 class="font-serif text-3xl md:text-4xl">
         Votre avis compte
     </h2>
 
-    {# AFFICHAGE VISUEL DE LA MOYENNE #}
-    <div class="my-3 flex justify-center">
-        <div class="relative inline-block text-3xl leading-none tracking-[0.12em]"
-            aria-hidden="true">
+    <p class="mt-2 text-sm opacity-75">
+        La note de nos visiteurs
+    </p>
 
-            {# Étoiles vides #}
+    {# MOYENNE PUBLIQUE #}
+    <div class="my-4 flex justify-center">
+        <div
+            class="relative inline-block text-3xl leading-none tracking-[0.12em]"
+            aria-hidden="true"
+        >
             <span class="text-[#929985]">★★★★★</span>
 
-            {# Étoiles remplies #}
-            <span id="rating-average-fill"
-                class="pointer-events-none absolute inset-y-0 left-0
-                        overflow-hidden whitespace-nowrap text-[#b68d32]"
-                style="width: {{ (average_rating|default(0) * 20)|round }}%">
-                ★★★★★
-            </span>
+            <span
+                id="rating-average-fill"
+                class="pointer-events-none absolute inset-y-0 left-0 overflow-hidden whitespace-nowrap text-[#b68d32]"
+                style="width: {{ (average_rating|default(0) * 20)|round }}%"
+            >★★★★★</span>
         </div>
     </div>
-    
-    {# MOYENNE ACTUELLE #}
-    <div class="mt-4">
-        <span id="rating-average"
-              class="text-2xl text-[#b68d32]">
+
+    <div>
+        <span
+            id="rating-average"
+            class="font-serif text-3xl text-[#b68d32]"
+        >
             {% if vote_count > 0 %}
                 {{ average_rating|number_format(1, ',', ' ') }}/5
             {% else %}
@@ -42,57 +46,69 @@
         </p>
     </div>
 
-    {# ETOILES INTERACTIVES #}
-    <div data-rating-controls class="mt-6 hidden">
+    {# UTILISATEUR CONNECTÉ : NOTATION #}
+    <div
+        data-rating-controls
+        class="mt-8 hidden border-t border-[#b68d32]/40 pt-8"
+    >
+        <h3 class="font-serif text-2xl">
+            Notez cette recette
+        </h3>
 
-        <p class="mb-3">Notez cette recette</p>
+        <p class="mt-2 text-sm opacity-75">
+            Sélectionnez une étoile pour donner votre note.
+        </p>
 
-        <div class="flex justify-center gap-2"
-             role="group"
-             aria-label="Attribuer une note de 1 à 5">
-
+        <div
+            class="mt-5 flex justify-center gap-2"
+            role="group"
+            aria-label="Attribuer une note de 1 à 5"
+        >
             {% for star in 1..5 %}
                 <button
                     type="button"
                     data-rate-value="{{ star }}"
                     aria-label="Attribuer {{ star }} sur 5"
                     aria-pressed="{{ user_rating|default(0) == star ? 'true' : 'false' }}"
-                    class="text-4xl transition-transform
-                           hover:scale-110
-                           focus-visible:outline-2
-                           focus-visible:outline-[#b68d32]
-                           {{ user_rating|default(0) >= star
-                              ? 'text-[#b68d32]'
-                              : 'text-[#929985]' }}">
-                    ★
-                </button>
+                    class="text-4xl transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-[#b68d32] {{ user_rating|default(0) >= star ? 'text-[#b68d32]' : 'text-[#929985]' }}"
+                >★</button>
             {% endfor %}
-
         </div>
 
         <p id="rating-personal" class="mt-3 text-sm">
-            {% if user_rating is not null %}
+            {% if user_rating|default(0) > 0 %}
                 Votre note : {{ user_rating }}/5
             {% endif %}
         </p>
     </div>
 
-    {# UTILISATEUR NON CONNECTE #}
-    <div data-rating-guest class="mt-6">
-        <p>Connectez-vous pour noter cette recette.</p>
+    {# VISITEUR : UNE SEULE INVITATION #}
+    <div
+        data-rating-guest
+        class="mt-8 hidden rounded-2xl border border-[#b68d32]/30 bg-[#d7d5c2] px-6 py-8"
+    >
+        <h3 class="font-serif text-2xl">
+            Partagez votre expérience
+        </h3>
 
-        <button type="button"
-                data-open-login
-                class="mt-4 rounded-full bg-[#481915]
-                       px-6 py-3 text-white
-                       hover:bg-[#6b2923]">
+        <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed">
+            Connectez-vous pour noter cette recette
+            et laisser un commentaire.
+        </p>
+
+        <button
+            type="button"
+            data-open-login
+            class="mt-6 rounded-full bg-[#481915] px-8 py-3 text-white transition-colors hover:bg-[#6b2923]"
+        >
             Se connecter
         </button>
     </div>
 
-    <p id="rating-status"
-       role="status"
-       aria-live="polite"
-       class="mt-4 text-sm"></p>
-
+    <p
+        id="rating-status"
+        role="status"
+        aria-live="polite"
+        class="mt-4 text-sm"
+    ></p>
 </section>
