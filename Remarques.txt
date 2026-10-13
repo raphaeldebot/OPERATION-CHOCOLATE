@@ -1,0 +1,57 @@
+1.je vois une petite anomalie visuelle.. Après l'inscription, 
+sur la page d'acceuil .. "Bonjour,  l inscrit"   dans le menu avant 
+"Deconnexion" ... Il serait pas mieux de le placer en haut à droite 
+ou ailleurs ?
+
+2. L'ensemble de la bannière s'étale trop vers le bas. Visuellement,
+il serait préférable de la diminuer.
+
+3. Laissez votre commentaire .. Ne serait pas mieux, de créer un bouton
+ "Commentaires" qui nous renvoie vers un formulaire qui s'affiche 
+ à l'avant de la page ? Car la page est déjà longue. 
+ 
+4. Dans le footer, bien faire rentrer le texte à l'intérieur des deux décors
+gauche et droite.
+
+5. Suggestion : Mettre "Votre avis compte" après les "Etapes de préparations"
+ou même mettre les étoiles à cocher dans "laissez votre commentaire" et 
+le nombre d'étoiles s'affichera également à droite du commentaire laisser
+par le visiteur. 
+
+
+2. Tests de navigation et de recettes
+
+QA-01 — Navigation générale     
+Réussi
+
+QA-02 — Menu alimenté par la base de données
+Attendu : la nouvelle recette apparaît automatiquement sans modifier le code PHP ou Twig.
+Réussi
+
+QA-03 — Affichage des recettes
+
+Ouvrir les 5 recettes et vérifier :
+
+Titre et description.     //il n'y a pas de description
+
+Photo principale.		  //il n'y a pas de photo
+
+Liste des ingrédients et quantités.   // ok
+
+Étapes dans le bon ordre.   // ok
+
+Photos des étapes.			// il n'y a pas de photo
+
+Temps de préparation et de cuisson.  //ok
+
+Difficulté et portions.			//ok
+
+Autres recettes à découvrir.
+
+Attendu : les 5 recettes sont complètes et leurs informations correspondent à la base.
+//leurs informations correspondent à la base
+
+Tester également une URL de recette inexistante :
+?pg=recipe&slug=recette-inexistante
+Attendu : une page 404 compréhensible, jamais une page blanche.
+//il y a bien une page 404
