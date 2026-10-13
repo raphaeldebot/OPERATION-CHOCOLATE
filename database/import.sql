@@ -182,7 +182,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `maison_rosalie`.`recipe_ingredient` (
   `recipe_id` INT NOT NULL,
   `ingredient_id` INT NOT NULL,
-  `recipe_ingredient_quantity` DECIMAL(8,2) NULL,
+  `recipe_ingredient_quantity` DECIMAL(8) NULL,
   `recipe_ingredient_unity` VARCHAR(45) NULL,
   PRIMARY KEY (`recipe_id`, `ingredient_id`),
   INDEX `fk_recipe_ingredient_ingredient_idx` (`ingredient_id` ASC) VISIBLE,
