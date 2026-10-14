@@ -1,0 +1,75 @@
+
+2. Tests de navigation et de recettes
+
+QA-01 — Navigation générale     
+Réussi
+
+QA-02 — Menu alimenté par la base de données
+Attendu : la nouvelle recette apparaît automatiquement sans modifier le code PHP ou Twig.
+Réussi
+
+QA-03 — Affichage des recettes
+
+Ouvrir les 5 recettes et vérifier :
+
+Titre et description.     //il n'y a pas de description
+
+Photo principale.		  //il n'y a pas de photo
+
+Liste des ingrédients et quantités.   // ok
+
+Étapes dans le bon ordre.   // ok
+
+Photos des étapes.			// il n'y a pas de photo
+
+Temps de préparation et de cuisson.  //ok
+
+Difficulté et portions.			//ok
+
+Autres recettes à découvrir.
+
+Attendu : les 5 recettes sont complètes et leurs informations correspondent à la base.
+//leurs informations correspondent à la base
+
+Tester également une URL de recette inexistante :
+?pg=recipe&slug=recette-inexistante
+Attendu : une page 404 compréhensible, jamais une page blanche.
+//il y a bien une page 404
+
+
+QA-15 — Entrées suspectes
+Tester dans les formulaires de connexion et de contact des entrées telles que :
+' OR '1'='1
+Attendu : aucune authentification contournée, aucune erreur SQL visible 
+et aucune modification anormale des données.
+// test ok
+
+Vérifier également :
+Une requête sans token CSRF est refusée.  //ok, affiche requête refusée
+
+Les actions privées sont refusées sans connexion.  //ok, redirection vers message d'erreur
+
+Les mots de passe ne sont pas stockés en clair.  //ok, les mdp sont bien hachés.
+
+Aucune information sensible n'apparaît dans les erreurs ou les réponses JSON.
+Statut : Problème détecté ❌
+Constat : En cas d'erreur de chargement (comme sur la page 404), le site affiche un message
+d'erreur brut Fatal error d'Orange/WAMP qui divulgue les chemins d'accès système (C:\wamp64\www\...).
+Recommandation : Il faut désactiver l'affichage des erreurs brutes 
+(display_errors = Off dans le fichier php.ini de production) et s'assurer que 
+Twig intercepte correctement les erreurs pour afficher une page propre sans fuite 
+d'information.
+
+Les fichiers contenant des secrets ne sont pas suivis par Git.
+//ok    Dans la liste des fichiers détectés par Git, on ne voit aucun fichier 
+		de configuration sensible (comme un fichier .env, .env.local ou un fichier PHP 
+		contenant vos identifiants de base de données).
+
+QA-16 — Panne de base de données :  //ok
+• Statut : Validé ✅
+• Constat : Lors de la coupure totale du service de base de données (MariaDB), l'application
+  intercepte proprement la panne.
+• Rendu : Affichage d'un message d'erreur générique et sécurisé ("Une erreur est survenue. 
+  Veuillez réessayer plus tard."). Aucune fuite d'information sensible ou de logs techniques 
+  à déplorer.
+

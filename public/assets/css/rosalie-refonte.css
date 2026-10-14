@@ -24,9 +24,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* En-tête : compact, même hauteur sur toutes les pages */
 .mr-header { position: relative; z-index: 60; background: var(--mr-cream); box-shadow: 0 1px 0 var(--mr-line); }
-.mr-header__inner { min-height: 104px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.mr-header__brand { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; max-width: 176px; color: var(--mr-forest); }
-.mr-header__brand img { width: 160px; max-height: 72px; object-fit: contain; }
+.mr-header__inner { min-height: 40px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.mr-header__brand { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; max-width: 240px; color: var(--mr-forest); margin-top: 50px;  /* 👈 Descend tout le bloc (logo + texte en dessous) */ }
+/*.mr-header__brand img { width: 200px; max-height: 100px; object-fit: contain; /* margin-top: 150px;  */
+ .mr-header__brand img { width: 120px; height: auto;  max-height: 190px; object-fit: contain;  }
 .mr-header__brand span { font: 600 9px/1.5 var(--mr-sans); text-align: center; text-transform: uppercase; letter-spacing: .13em; }
 .mr-header__rule { height: 3px; background: linear-gradient(90deg, transparent, rgba(182,141,50,.75) 27%, rgba(182,141,50,.75) 73%, transparent); }
 .mr-nav { font-family: var(--mr-sans); font-size: 13px; }
@@ -167,7 +168,7 @@ footer a:hover { text-decoration: underline; }
 @media (max-width: 700px) {
     .mr-container { width: min(100% - 32px, 1180px); }
     .mr-header__inner { min-height: 78px; }
-    .mr-header__brand img { width: 122px; max-height: 52px; }
+    .mr-header__brand img { width: 500px; height: auto;  max-height: 290px; object-fit: contain;  }
     .mr-header__brand span { letter-spacing: .08em; }
     .mr-nav__desktop { display: none; }
     .mr-nav__mobile { display: block; }
