@@ -182,7 +182,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `maison_rosalie`.`recipe_ingredient` (
   `recipe_id` INT NOT NULL,
   `ingredient_id` INT NOT NULL,
-  `recipe_ingredient_quantity` DECIMAL(8,2) NULL,
+  `recipe_ingredient_quantity` DECIMAL(8) NULL,
   `recipe_ingredient_unity` VARCHAR(45) NULL,
   PRIMARY KEY (`recipe_id`, `ingredient_id`),
   INDEX `fk_recipe_ingredient_ingredient_idx` (`ingredient_id` ASC) VISIBLE,
@@ -487,28 +487,28 @@ VALUES
     1,
     'Étape 1',
     'Râper le chocolat. Dans une casserole à fond assez épais, faire frémir le lait avec la crème et la cannelle.',
-    ''
+    'assets/images/recipes/chocolat-chaud-cannelle/step-01.webp'
 ),
 (
     2,
     2,
     'Étape 2',
     'Retirer la casserole du feu et laisser le mélange infuser. Retirer les bâtons de cannelle et intéger le chocolat.',
-    ''
+    'assets/images/recipes/chocolat-chaud-cannelle/step-02.webp'
 ),
 (
     2,
     3,
     'Étape 3',
     'Remuer doucement à l''aide d''un fouet : le chocolat doit être parfaitement fondu.',
-    ''
+    'assets/images/recipes/chocolat-chaud-cannelle/step-03.webp'
 ),
 (
     2,
     4,
     'Étape 4',
     'Laisser la cuisson se poursuivre à feu très doux quelques minutes en fouettant doucement : le chocolat sera encore plus onctueux et crémeux...!',
-    ''
+    'assets/images/recipes/chocolat-chaud-cannelle/step-04.webp'
 );
 
 
@@ -524,56 +524,56 @@ VALUES
     1,
     'Étape 1',
     'Préchauffer le four à 150°C (thermostat 5).',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-01.webp'
 ),
 (
     3,
     2,
     'Étape 2',
     'Faire fondre le chocolat avec le beurre dans une casserole.',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-02.webp'
 ),
 (
     3,
     3,
     'Étape 3',
     'Puis verser dans une terrine.',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-03.webp'
 ),
 (
     3,
     4,
     'Étape 4',
     'Ajouter le sucre et mélanger.',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-04.webp'
 ),
 (
     3,
     5,
     'Étape 5',
     'Laisser tiédir, puis ajouter les oeufs et la maïzena.',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-05.webp'
 ),
 (
     3,
     6,
     'Étape 6',
     'Mélanger jusqu''à l''obtention d''une pâte lisse et la verser dans un moule beurré ou muni d''un papier sulfurisé.',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-06.webp'
 ),
 (
     3,
     7,
     'Étape 7',
     'Mettre au four et laisser cuire 15 à 20 min.',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-07.webp'
 ),
 (
     3,
     8,
     'Étape 8',
     'Attendre que le fondant ait refroidi avant de le démouler sinon celui-ci risquerait de se décomposer et le chocolat fondu de couler !!',
-    ''
+    'assets/images/recipes/fondant-au-chocolat/step-08.webp'
 );
 
 
@@ -589,70 +589,70 @@ VALUES
     1,
     'Étape 1',
     'Préchauffer le four à 180°C (thermostat 6). Faire fondre le chocolat dans une casserole.',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-01.webp'
 ),
 (
     4,
     2,
     'Étape 2',
     'Hors du feu, ajouter le beurre,',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-02.webp'
 ),
 (
     4,
     3,
     'Étape 3',
     'la farine et la levure.',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-03.webp'
 ),
 (
     4,
     4,
     'Étape 4',
     'Fouetter les jaunes d’oeuf avec le sucre',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-04.webp'
 ),
 (
     4,
     5,
     'Étape 5',
     'et un peu d''eau pour faire mousser',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-05.webp'
 ),
 (
     4,
     6,
     'Étape 6',
     'puis l''ajouter à la préparation chocolatée.',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-06.webp'
 ),
 (
     4,
     7,
     'Étape 7',
     'Battre les blancs en neige et les incorporer dans la casserole tout doucement.',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-07.webp'
 ),
 (
     4,
     8,
     'Étape 8',
     'Verser le tout dans un moule beurré à bords hauts',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-08.webp'
 ),
 (
     4,
     9,
     'Étape 9',
     'et enfourner pendant environ 35 minutes.',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-09.webp'
 ),
 (
     4,
     10,
     'Étape 10',
     'On peut ajouter du sucre glace ou du chocolat fondu, pour décorer le dessus du gâteau.',
-    ''
+    'assets/images/recipes/moelleux-au-chocolat/step-10.webp'
 );
 
 
@@ -668,56 +668,56 @@ VALUES
     1,
     'Étape 1',
     'A préparer la veille.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-01.webp'
 ),
 (
     5,
     2,
     'Étape 2',
     'Séparer les blancs d''oeufs des jaunes.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-02.webp'
 ),
 (
     5,
     3,
     'Étape 3',
     'Mélanger les jaunes avec le sucre jusqu''à ce que le mélange mousse et blanchisse.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-03.webp'
 ),
 (
     5,
     4,
     'Étape 4',
     'Faire fondre le chocolat au bain-marie et le rajouter au mélange jaune d''oeufs + sucre.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-04.webp'
 ),
 (
     5,
     5,
     'Étape 5',
     'Monter les blancs d''oeufs en neige avec une pincée de sel.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-05.webp'
 ),
 (
     5,
     6,
     'Étape 6',
     'Rajouter les blancs délicatement au reste de la préparation en soulevant la masse pour ne pas faire retomber les blancs.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-06.webp'
 ),
 (
     5,
     7,
     'Étape 7',
     'Mettre au réfrigérateur et consommer le lendemain.',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-07.webp'
 ),
 (
     5,
     8,
     'Étape 8',
     'Avant de la manger, saupoudrer le dessus de la sultane avec des vermicelles colorés ou mettre quelques Smarties pour les enfants, ou les grands !!',
-    ''
+    'assets/images/recipes/mousse-au-chocolat/step-08.webp'
 );
 
 DELIMITER //
