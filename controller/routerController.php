@@ -75,6 +75,21 @@ case 'about':
 case 'contact':
     echo (new ContactController($connectDB, $twig))->index();
     break;
+case 'engagements':
+    echo $twig->render('engagements-blog.html.twig', [
+        'title' => 'Nos engagements',
+    ]);
+    break;
+case 'cgu':
+    echo $twig->render('cgu.html.twig', [
+        'title' => "Conditions générales d'utilisation",
+    ]);
+    break;
+    case 'cookies':
+    echo $twig->render('cookies.html.twig', [
+        'title' => 'Gestion des cookies',
+    ]);
+    break;
 // Utilisateurs
 case 'api-register':
     if (!$requireMethod('POST')) break;
