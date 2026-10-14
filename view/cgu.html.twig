@@ -1,0 +1,148 @@
+{# Page : Conditions générales d'utilisation — Maison Rosalie (?pg=cgu)
+   Contenu fictif : à faire relire par un juriste avant mise en ligne. #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditions générales d'utilisation — Maison Rosalie{% endblock %}
+
+{% block body %}
+{% set articles = [
+    {
+        id: 'objet',
+        title: 'Objet',
+        paragraphs: [
+            "Les présentes conditions générales d'utilisation (CGU) définissent les règles d'accès et d'usage du site maisonrosalie.be, édité par Maison Rosalie SRL, Rue Saint-Gilles 48, 4000 Liège — BCE 0789.456.123.",
+            "Elles complètent nos conditions générales de vente, qui s'appliquent spécifiquement aux commandes. Toute navigation sur le site implique l'acceptation des présentes CGU."
+        ]
+    },
+    {
+        id: 'acces',
+        title: 'Accès au site',
+        paragraphs: [
+            "Le site est accessible gratuitement, 7 jours sur 7 et 24 heures sur 24, à toute personne disposant d'un accès à internet. Les frais de connexion et d'équipement restent à la charge de l'utilisateur.",
+            "Maison Rosalie peut suspendre l'accès au site, sans préavis, pour des raisons de maintenance, de mise à jour ou de sécurité. Ces interruptions ne donnent droit à aucune indemnité."
+        ]
+    },
+    {
+        id: 'compte',
+        title: 'Compte client',
+        paragraphs: [
+            "La création d'un compte est facultative mais permet de suivre ses commandes et d'enregistrer ses adresses de livraison. L'utilisateur s'engage à fournir des informations exactes et à les tenir à jour.",
+            "Les identifiants sont personnels et confidentiels. L'utilisateur est responsable de toute activité réalisée depuis son compte et doit nous signaler sans délai toute utilisation non autorisée à contact@maisonrosalie.be.",
+            "Maison Rosalie peut suspendre ou supprimer un compte en cas de non-respect des présentes CGU, de fausse déclaration ou de comportement abusif. Le client peut supprimer son compte à tout moment depuis son espace personnel ou sur simple demande."
+        ]
+    },
+    {
+        id: 'usage',
+        title: 'Utilisation du site',
+        paragraphs: [
+            "L'utilisateur s'engage à utiliser le site de manière loyale et conforme à la loi. Il s'interdit notamment de perturber son fonctionnement, d'y introduire un programme malveillant, de tenter d'accéder aux données d'autres clients ou d'extraire massivement son contenu de façon automatisée.",
+            "Toute utilisation contraire peut entraîner la suspension de l'accès au site, sans préjudice d'éventuelles poursuites."
+        ]
+    },
+    {
+        id: 'avis',
+        title: 'Avis et contenus publiés par les clients',
+        paragraphs: [
+            "Les clients peuvent laisser un avis sur les produits achetés. Ces avis doivent porter sur une expérience réelle et rester courtois : les propos injurieux, diffamatoires, discriminatoires, publicitaires ou sans rapport avec le produit ne seront pas publiés.",
+            "Les avis sont modérés avant publication dans un délai de 72 heures. Maison Rosalie publie les avis positifs comme négatifs, et peut y répondre publiquement. En publiant un avis, l'auteur autorise sa diffusion sur le site et nos réseaux sociaux, accompagnée de son prénom et de l'initiale de son nom."
+        ]
+    },
+    {
+        id: 'propriete',
+        title: 'Propriété intellectuelle',
+        paragraphs: [
+            "Le nom et le logo Maison Rosalie, les textes, photographies, illustrations, ornements et la charte graphique du site sont la propriété exclusive de Maison Rosalie SRL ou de ses partenaires, et sont protégés par le droit d'auteur et le droit des marques.",
+            "Toute reproduction, représentation ou adaptation, totale ou partielle, sans autorisation écrite préalable est interdite. Le partage de liens vers nos pages et de nos publications via les fonctions de partage des réseaux sociaux reste bien entendu libre."
+        ]
+    },
+    {
+        id: 'responsabilite',
+        title: 'Responsabilité',
+        paragraphs: [
+            "Maison Rosalie veille à l'exactitude des informations publiées (descriptions, prix, allergènes, horaires), mais ne peut garantir l'absence totale d'erreur. En cas de doute, notamment sur un allergène, nous invitons l'utilisateur à nous contacter avant toute commande.",
+            "Maison Rosalie ne saurait être tenue responsable des dommages liés à une indisponibilité du site, à un virus provenant d'un équipement tiers ou à une utilisation du site non conforme aux présentes CGU."
+        ]
+    },
+    {
+        id: 'liens',
+        title: 'Liens externes',
+        paragraphs: [
+            "Le site contient des liens vers des services tiers, notamment nos pages Facebook, Instagram et X, ainsi que nos prestataires de paiement. Ces services sont soumis à leurs propres conditions et politiques de confidentialité, sur lesquelles Maison Rosalie n'a aucun contrôle."
+        ]
+    },
+    {
+        id: 'donnees',
+        title: 'Données personnelles et cookies',
+        paragraphs: [
+            "Les données collectées sur le site sont traitées conformément au RGPD et à la loi belge du 30 juillet 2018 relative à la protection des personnes physiques. Elles servent à gérer les comptes, les commandes et, avec votre accord, l'envoi de notre lettre d'information.",
+            "Vous pouvez exercer vos droits d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition à contact@maisonrosalie.be. En cas de désaccord, vous pouvez introduire une plainte auprès de l'Autorité de protection des données (autoriteprotectiondonnees.be). L'usage des cookies est détaillé sur notre page Gestion des cookies."
+        ]
+    },
+    {
+        id: 'modification',
+        title: 'Modification des CGU',
+        paragraphs: [
+            "Maison Rosalie peut faire évoluer les présentes CGU, notamment pour tenir compte de nouvelles fonctionnalités ou d'un changement de réglementation. La version en vigueur est celle publiée sur cette page à la date de consultation. Les titulaires d'un compte sont informés par courriel de toute modification importante."
+        ]
+    },
+    {
+        id: 'droit',
+        title: 'Droit applicable',
+        paragraphs: [
+            "Les présentes CGU sont régies par le droit belge. En cas de litige, une solution amiable sera recherchée en priorité. À défaut, les tribunaux de l'arrondissement judiciaire de Liège sont compétents, sans préjudice des règles impératives protégeant le consommateur."
+        ]
+    }
+] %}
+
+<main class="relative overflow-hidden bg-[#eae6d8] px-6 py-16 text-[#30422e]">
+    <img src="assets/images/decorative/corner-ornament.svg"
+         alt="" aria-hidden="true"
+         class="rosalie-gold-ornament pointer-events-none absolute left-0 top-0 hidden h-36 w-36 scale-y-[-1] object-contain opacity-70 lg:block">
+    <img src="assets/images/decorative/corner-ornament.svg"
+         alt="" aria-hidden="true"
+         class="rosalie-gold-ornament pointer-events-none absolute right-0 top-0 hidden h-36 w-36 scale-x-[-1] scale-y-[-1] object-contain opacity-70 lg:block">
+
+    <header class="relative mx-auto max-w-3xl border-b border-[#c4b591] pb-8 text-center">
+        <h1 class="text-2xl uppercase tracking-[0.08em] md:text-3xl">Conditions générales d'utilisation</h1>
+        <p class="mt-4 text-sm leading-relaxed">
+            Les règles qui encadrent votre navigation sur le site de Maison Rosalie.
+        </p>
+        <p class="mt-2 text-xs text-[#30422e]/70">Dernière mise à jour : 1er octobre 2026</p>
+    </header>
+
+    <nav aria-label="Sommaire" class="relative mx-auto mt-10 max-w-3xl">
+        <ol class="grid gap-x-8 gap-y-2 text-xs uppercase tracking-[0.05em] sm:grid-cols-2">
+            {% for article in articles %}
+            <li>
+                <a href="#{{ article.id }}" class="hover:text-[#b58b3a]">
+                    Article {{ loop.index }} — {{ article.title }}
+                </a>
+            </li>
+            {% endfor %}
+        </ol>
+    </nav>
+
+    <div class="relative mx-auto mt-12 max-w-3xl divide-y divide-[#c4b591]">
+        {% for article in articles %}
+        <section id="{{ article.id }}" class="scroll-mt-24 py-8">
+            <h2 class="flex items-baseline gap-4 text-sm uppercase tracking-[0.05em]">
+                <span class="text-[#b58b3a]">Art. {{ loop.index }}</span>
+                <span>{{ article.title }}</span>
+            </h2>
+            <div class="mt-4 space-y-3 text-sm leading-relaxed">
+                {% for paragraph in article.paragraphs %}
+                <p>{{ paragraph }}</p>
+                {% endfor %}
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+
+    <p class="relative mx-auto mt-8 max-w-3xl border-t border-[#c4b591] pt-6 text-center text-xs">
+        Voir aussi nos
+        <a href="?pg=cgv" class="underline hover:text-[#b58b3a]">conditions générales de vente</a>
+        — une question ?
+        <a href="mailto:contact@maisonrosalie.be" class="underline hover:text-[#b58b3a]">contact@maisonrosalie.be</a>
+    </p>
+</main>
+{% endblock %}

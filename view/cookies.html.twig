@@ -1,0 +1,153 @@
+{# Page : Gestion des cookies — Maison Rosalie (?pg=cookies)
+   Contenu d'exemple : à faire relire avant mise en ligne.
+   Si tu ajoutes un outil (statistiques, vidéo YouTube...), ajoute-le dans "cookies" ci-dessous
+   ET dans CATEGORIES de public/assets/js/cookie-consent.js. #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+{% set cookies = [
+    {
+        name: 'PHPSESSID',
+        provider: 'Maison Rosalie',
+        category: 'Nécessaire',
+        purpose: "Garde votre session ouverte : connexion à votre compte, commentaires et notes sur les recettes.",
+        duration: 'Fin de la session de navigation'
+    },
+    {
+        name: 'mr_consent',
+        provider: 'Maison Rosalie',
+        category: 'Nécessaire',
+        purpose: 'Mémorise vos choix en matière de cookies pour ne pas vous les redemander à chaque page.',
+        duration: '6 mois'
+    },
+    {
+        name: 'NID, AEC, SOCS…',
+        provider: 'Google (Google Maps)',
+        category: 'Contenus externes',
+        purpose: "Déposés par Google uniquement si vous affichez la carte de la page Contact.",
+        duration: 'Jusqu’à 13 mois, selon Google'
+    }
+] %}
+
+<main class="relative overflow-hidden bg-[#eae6d8] px-6 py-16 text-[#30422e]">
+    <img src="assets/images/decorative/corner-ornament.svg"
+         alt="" aria-hidden="true"
+         class="rosalie-gold-ornament pointer-events-none absolute left-0 top-0 hidden h-36 w-36 scale-y-[-1] object-contain opacity-70 lg:block">
+    <img src="assets/images/decorative/corner-ornament.svg"
+         alt="" aria-hidden="true"
+         class="rosalie-gold-ornament pointer-events-none absolute right-0 top-0 hidden h-36 w-36 scale-x-[-1] scale-y-[-1] object-contain opacity-70 lg:block">
+
+    <header class="relative mx-auto max-w-3xl border-b border-[#c4b591] pb-8 text-center">
+        <h1 class="text-2xl uppercase tracking-[0.08em] md:text-3xl">Gestion des cookies</h1>
+        <p class="mt-4 text-sm leading-relaxed">
+            Ce que nous déposons sur votre appareil, pourquoi, et comment changer d'avis à tout moment.
+        </p>
+        <p class="mt-2 text-xs">Dernière mise à jour : 14 octobre 2026</p>
+    </header>
+
+    <div class="mr-legal relative mx-auto mt-10 max-w-3xl">
+
+        {# --- Préférences : en premier, c'est ce que le visiteur vient chercher --- #}
+        <section id="preferences" class="mr-cookie-prefs" aria-labelledby="prefs-title">
+            <h2 id="prefs-title">Vos préférences</h2>
+            <p>Les cookies nécessaires sont toujours actifs. Les autres ne sont utilisés qu'avec votre accord.</p>
+
+            <form id="mr-cookie-form" class="mr-cookie-form" novalidate>
+                <div class="mr-cookie-option">
+                    <div>
+                        <p class="mr-cookie-option__name">Nécessaires</p>
+                        <p class="mr-cookie-option__desc">Session, connexion et mémorisation de vos choix. Le site ne fonctionne pas sans eux.</p>
+                    </div>
+                    <label class="mr-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="mr-switch__track" aria-hidden="true"></span>
+                        <span class="mr-sr-only">Cookies nécessaires (toujours actifs)</span>
+                    </label>
+                </div>
+
+                <div class="mr-cookie-option">
+                    <div>
+                        <p class="mr-cookie-option__name">Contenus externes</p>
+                        <p class="mr-cookie-option__desc">Affiche la carte Google Maps de la page Contact. Google peut alors déposer ses propres cookies.</p>
+                    </div>
+                    <label class="mr-switch">
+                        <input type="checkbox" name="external" data-consent-category="external">
+                        <span class="mr-switch__track" aria-hidden="true"></span>
+                        <span class="mr-sr-only">Autoriser les contenus externes</span>
+                    </label>
+                </div>
+
+                <div class="mr-cookie-actions">
+                    <button type="button" class="mr-cookie-btn" data-consent-refuse-all>Tout refuser</button>
+                    <button type="button" class="mr-cookie-btn" data-consent-accept-all>Tout accepter</button>
+                    <button type="submit" class="mr-cookie-btn mr-cookie-btn--primary">Enregistrer mes choix</button>
+                </div>
+                <p class="mr-cookie-status" data-consent-status role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section aria-labelledby="what-title">
+            <h2 id="what-title">Qu'est-ce qu'un cookie ?</h2>
+            <p>Un cookie est un petit fichier texte enregistré par votre navigateur lorsque vous visitez un site. Il permet au site de se souvenir d'une information d'une page à l'autre, par exemple que vous êtes connecté.</p>
+        </section>
+
+        <section aria-labelledby="list-title">
+            <h2 id="list-title">Les cookies utilisés sur ce site</h2>
+            <div class="mr-cookie-table-wrap">
+                <table class="mr-cookie-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Fournisseur</th>
+                            <th scope="col">Catégorie</th>
+                            <th scope="col">Finalité</th>
+                            <th scope="col">Durée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cookie in cookies %}
+                        <tr>
+                            <th scope="row">{{ cookie.name }}</th>
+                            <td>{{ cookie.provider }}</td>
+                            <td>{{ cookie.category }}</td>
+                            <td>{{ cookie.purpose }}</td>
+                            <td>{{ cookie.duration }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <p>Nous n'utilisons aucun outil de mesure d'audience ni de cookie publicitaire.</p>
+            <p>Les polices du site sont chargées depuis Google Fonts : aucun cookie n'est déposé, mais votre adresse IP est transmise à Google pour afficher les caractères.</p>
+        </section>
+
+        <section aria-labelledby="change-title">
+            <h2 id="change-title">Changer d'avis</h2>
+            <p>Votre choix est conservé 6 mois, puis nous vous le redemandons. Vous pouvez le modifier à tout moment depuis cette page, accessible par le lien « Gestion des cookies » en bas de chaque page.</p>
+            <p>Retirer votre accord empêche les nouveaux dépôts, mais ne supprime pas les cookies déjà déposés par Google. Pour les effacer, passez par les réglages de votre navigateur :
+                <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer">Chrome</a>,
+                <a href="https://support.mozilla.org/fr/kb/effacer-cookies-donnees-site-firefox" target="_blank" rel="noopener noreferrer">Firefox</a>,
+                <a href="https://support.apple.com/fr-be/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer">Safari</a>,
+                <a href="https://support.microsoft.com/fr-fr/microsoft-edge/supprimer-les-cookies-dans-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer">Edge</a>.
+            </p>
+            <p>Le fonctionnement des cookies de Google est expliqué dans sa
+                <a href="https://policies.google.com/technologies/cookies?hl=fr" target="_blank" rel="noopener noreferrer">politique relative aux cookies</a>.
+            </p>
+        </section>
+
+        <section aria-labelledby="rights-title">
+            <h2 id="rights-title">Vos droits</h2>
+            <p>Les données liées aux cookies sont traitées conformément au RGPD et à la loi belge du 30 juillet 2018. Pour toute question, écrivez-nous à
+                <a href="mailto:contact@maisonrosalie.be">contact@maisonrosalie.be</a>.
+                Vous pouvez aussi introduire une plainte auprès de l'<a href="https://www.autoriteprotectiondonnees.be" target="_blank" rel="noopener noreferrer">Autorité de protection des données</a>.
+            </p>
+        </section>
+    </div>
+
+    <p class="relative mx-auto mt-8 max-w-3xl border-t border-[#c4b591] pt-6 text-center text-xs">
+        Voir aussi nos
+        <a href="?pg=cgu" class="underline hover:text-[#b58b3a]">conditions générales d'utilisation</a>
+        et <a href="?pg=engagements" class="underline hover:text-[#b58b3a]">nos engagements</a>.
+    </p>
+</main>
+{% endblock %}

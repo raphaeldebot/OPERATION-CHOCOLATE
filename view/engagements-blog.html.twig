@@ -1,0 +1,85 @@
+{# Page : Nos engagements — blog de recettes au chocolat (?pg=engagements)
+   Contenu fictif : adapte les chiffres et objectifs à la réalité du blog. #}
+{% extends 'base.html.twig' %}
+
+{% set blog_name = 'Maison Rosalie' %}
+
+{% block title %}Nos engagements — {{ blog_name }}{% endblock %}
+
+{% block body %}
+{% set engagements = [
+    {
+        title: 'Chaque recette est testée trois fois',
+        text: "Avant d'être publiée, une recette est réalisée au moins trois fois dans une cuisine ordinaire, avec un four ménager et du matériel que vous avez probablement chez vous. Si une ganache tranche ou si un fondant ne prend pas, on recommence jusqu'à ce que le résultat soit fiable.",
+        goal: 'Retester chaque année les 3 recettes les plus consultées et corriger celles qui posent problème en commentaires.'
+    },
+    {
+        title: 'Des quantités précises, au gramme près',
+        text: "Le chocolat ne pardonne pas l'approximation. Toutes nos recettes donnent les poids en grammes, les températures de cuisson et de tempérage au degré près, ainsi que le pourcentage de cacao conseillé. Les « une tasse » et « un morceau » n'ont pas leur place ici.",
+        goal: 'Ajouter une version en pas-à-pas photo à 100 % des recettes de tempérage d’ici fin 2027.'
+    },
+    {
+        title: 'Un chocolat choisi avec soin',
+        text: "Quand nous recommandons un chocolat, c'est que nous l'avons utilisé. Nous privilégions les chocolatiers et les marques qui publient l'origine de leurs fèves et rémunèrent correctement les cacaoculteurs. Nous indiquons toujours une alternative accessible en grande surface.",
+        goal: 'Publier un guide des origines de cacao et de leurs usages en pâtisserie au printemps 2027.'
+    },
+    {
+        title: 'Transparence sur les partenariats',
+        text: "Le blog est gratuit et le restera. Lorsqu'une marque nous offre un produit ou rémunère un article, c'est écrit en toutes lettres en haut de la recette, pas en petits caractères. Un partenaire ne relit jamais un article avant sa publication et ne peut pas en modifier l'avis.",
+        goal: 'Maximum un article sponsorisé pour dix recettes publiées.'
+    },
+    {
+        title: 'Des recettes pour toutes les envies',
+        text: "Du mug cake de cinq minutes à l'entremets de fête, chaque recette indique son niveau de difficulté, son temps de préparation et son coût approximatif. Nous proposons aussi des variantes sans œufs, sans lactose ou sans gluten quand le résultat reste à la hauteur.",
+        goal: 'Une variante végétale testée pour un tiers des recettes d’ici fin 2027.'
+    },
+    {
+        title: 'On répond à vos questions',
+        text: "Une recette ratée, une question sur une substitution, un doute sur une cuisson : chaque commentaire reçoit une réponse de notre part. Vos retours servent aussi à améliorer les recettes, et nous mentionnons les modifications qu'ils ont permis.",
+        goal: 'Répondre à chaque commentaire en moins de 48 heures.'
+    }
+] %}
+
+<main class="relative overflow-hidden bg-[#eae6d8] px-6 py-16 text-[#30422e]">
+    <img src="assets/images/decorative/corner-ornament.svg"
+         alt="" aria-hidden="true"
+         class="rosalie-gold-ornament pointer-events-none absolute left-0 top-0 hidden h-36 w-36 scale-y-[-1] object-contain opacity-70 lg:block">
+    <img src="assets/images/decorative/corner-ornament.svg"
+         alt="" aria-hidden="true"
+         class="rosalie-gold-ornament pointer-events-none absolute right-0 top-0 hidden h-36 w-36 scale-x-[-1] scale-y-[-1] object-contain opacity-70 lg:block">
+
+    <header class="relative mx-auto max-w-3xl border-b border-[#c4b591] pb-10 text-center">
+        <h1 class="text-2xl uppercase tracking-[0.08em] md:text-3xl">Nos engagements</h1>
+        <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed">
+            Ce blog est né d'une obsession simple : réussir le chocolat à la maison, sans matériel de professionnel
+            et sans mauvaise surprise. Pour que vous puissiez suivre nos recettes les yeux fermés, voici les règles
+            que nous nous imposons, et les objectifs que nous nous fixons pour les prochaines années.
+        </p>
+    </header>
+
+    <div class="relative mx-auto mt-4 max-w-4xl divide-y divide-[#c4b591]">
+        {% for engagement in engagements %}
+        <section class="grid gap-4 py-10 md:grid-cols-[1fr_2fr] md:gap-10">
+            <h2 class="text-sm uppercase tracking-[0.05em]">{{ engagement.title }}</h2>
+            <div class="space-y-4">
+                <p class="text-sm leading-relaxed">{{ engagement.text }}</p>
+                <p class="border-l-2 border-[#b58b3a] pl-4 text-sm leading-relaxed">
+                    <span class="text-[#b58b3a]">Notre objectif :</span> {{ engagement.goal }}
+                </p>
+            </div>
+        </section>
+        {% endfor %}
+    </div>
+
+    <div class="relative mx-auto mt-6 max-w-3xl border-t border-[#c4b591] pt-8 text-center text-sm leading-relaxed">
+        <p>
+            Une recette qui n'a pas fonctionné chez vous ? Dites-le-nous :
+            c'est ainsi que nos recettes s'améliorent.
+        </p>
+        <a href="mailto:contact@maisonrosalie.be"
+           class="mt-4 inline-block border border-[#c4b591] px-6 py-2 text-xs uppercase tracking-[0.05em] transition-colors hover:border-[#b58b3a] hover:text-[#b58b3a]">
+            Nous écrire
+        </a>
+    </div>
+</main>
+{% endblock %}

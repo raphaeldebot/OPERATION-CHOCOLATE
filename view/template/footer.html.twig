@@ -1,4 +1,49 @@
 {# Footer commun aux pages Maison Rosalie. #}
+{% set social_links = {
+    facebook:  'https://www.facebook.com/Maison.Rosalie/',
+    instagram: 'https://www.instagram.com/maison.rosalie/',
+    x:         'https://x.com/?lang=fr'
+} %}
+
+<style>
+    .mr-footer__top {
+        position: relative;
+        max-width: 1024px;
+        margin-inline: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+    }
+    .mr-footer__links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+    }
+    .mr-footer__links a { color: #30422e; }
+    .mr-footer__links a:hover,
+    .mr-footer__links a[aria-current="page"] { color: #b58b3a; }
+
+    .mr-social { display: flex; align-items: center; gap: 14px; margin: 0; padding: 0; list-style: none; }
+    .mr-social__link {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 38px; height: 38px;
+        border: 1px solid #c4b591; border-radius: 50%;
+        color: #30422e;
+        transition: color .2s ease, border-color .2s ease;
+    }
+    .mr-social__link svg { display: block; flex: none; }
+    footer .mr-social__link:hover { color: #b58b3a; border-color: #b58b3a; text-decoration: none; }
+
+    @media (max-width: 640px) {
+        .mr-footer__top { flex-direction: column; align-items: flex-start; gap: 24px; }
+    }
+</style>
+
 <footer class="relative overflow-hidden border-t border-[#c4b591] bg-[#eae6d8] px-6 py-10 text-[#30422e]">
     <img src="assets/images/decorative/corner-ornament.svg"
          alt="" aria-hidden="true"
@@ -7,22 +52,48 @@
          alt="" aria-hidden="true"
          class="rosalie-gold-ornament pointer-events-none absolute bottom-0 right-0 hidden h-36 w-36 scale-x-[-1] object-contain opacity-70 lg:block">
 
-    <div class="relative mx-auto grid max-w-5xl gap-8 text-xs uppercase tracking-[0.05em] sm:grid-cols-2 lg:grid-cols-3">
-        <div class="space-y-3">
-            <p>FAQ</p>
-            <p>Nos engagements</p>
-            <p>Avis clients</p>
-        </div>
-        <div class="space-y-3">
-            <p>Allergènes</p>
-            <p>Retours et réclamations</p>
-            <a href="?pg=about" class="block hover:text-[#b58b3a]">Notre savoir-faire</a>
-        </div>
-        <div class="space-y-3">
-            <p>Mentions légales</p>
-            <p>Conditions générales de vente</p>
-            <p>Gestion des cookies</p>
-        </div>
+<div class="mr-footer__top">
+        <nav aria-label="Informations" class="mr-footer__links">
+            <a href="?pg=engagements" class="hover:text-[#b58b3a]">Nos engagements</a>
+            <a href="?pg=cgu" class="hover:text-[#b58b3a]">Conditions générales d'utilisation</a>
+            <a href="?pg=cookies" class="hover:text-[#b58b3a]">Gestion des cookies</a>
+        </nav>
+
+
+        {% set social_networks = [
+            { key: 'instagram', label: 'Instagram' },
+            { key: 'facebook',  label: 'Facebook' },
+            { key: 'x',         label: 'X (Twitter)' }
+        ] %}
+        <ul class="mr-social" aria-label="Réseaux sociaux">
+            {% for network in social_networks %}
+                {% set url = social_links[network.key]|default('') %}
+                {% if url %}
+                <li>
+                    <a href="{{ url }}"
+                       class="mr-social__link"
+                       aria-label="Maison Rosalie sur {{ network.label }}"
+                       {% if url != '#' %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                        {% if network.key == 'instagram' %}
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                            <rect x="3.5" y="3.5" width="17" height="17" rx="5"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/>
+                        </svg>
+                        {% elseif network.key == 'facebook' %}
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true" focusable="false">
+                            <path d="M13.5 21v-7.5h2.5l.4-3h-2.9V8.6c0-.9.3-1.5 1.5-1.5h1.5V4.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2.4H8.1v3h2.5V21h2.9z"/>
+                        </svg>
+                        {% elseif network.key == 'x' %}
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true" focusable="false">
+                            <path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.4L5.3 21H2.2l7.2-8.3L1.8 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5z"/>
+                        </svg>
+                        {% endif %}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     </div>
 
     <div class="relative mx-auto mt-10 flex max-w-5xl flex-col items-center gap-4 border-t border-[#c4b591] pt-5 text-center text-xs md:flex-row md:justify-between">
@@ -32,7 +103,7 @@
         </div>
 
         <a href="?pg=home" aria-label="Maison Rosalie, accueil">
-            <img src="assets/images/shared/logo-gold.svg" alt="Maison Rosalie" class="h-14 w-auto object-contain">
+            <img src="assets/images/shared/logo-gold.svg" alt="Maison Rosalie" class="h-14 w-20 object-contain">
         </a>
 
         <p>© 2026 Maison Rosalie — Tous droits réservés</p>
